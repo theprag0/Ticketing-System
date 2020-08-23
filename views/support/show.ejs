@@ -1,93 +1,104 @@
 <%-include("../partials/header")%>
 <h1 class="mb-3">Ticket Info</h1>
-<hr>
+<hr />
 <div class="row" style="margin-bottom: 100px;">
-<div class="col-sm-12 col-md-4">
-    <div class="col-12" id="user-info">
-<h2 class="user-details">User Details:</h2>
-<img class="img-fluid" id="user-image" src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="user-profile-picture" id="profile-picture">
-<div class="details">
-    <ul>
-        <li><strong>Username: </strong><a href="">@<%=complaint.author.username%></a></li>
-        <li><strong>Name: </strong><%=complaint.author.id.firstName%> <%=complaint.author.id.lastName%></li>
-        <li><strong>Email: </strong></li>
-        <li><a href="<%=complaint.author.id.email%>"><%=complaint.author.id.email%></a></li>
-    </ul>
-</div>
-</div>
-</div>
-<div class="col-sm-12 col-md-8">
-    <div class="col-12" id="user-info">
-    <h2 class="user-details" style="text-align: left;">Ticket Information:</h2>
-    <hr class="style-one">
-    <div class="details">
-        <div style="float: left;">
-            <ul>
-                <li><strong class="ticket-details">Title/Subject:</strong></li>
-                <li><strong class="ticket-details">Created At:</strong></li>
-                <li><strong class="ticket-details">Opened At:</strong></li>
-                <li><strong class="ticket-details">Updated At:</strong></li>
-                <li><strong class="ticket-details">Ticket ID/Ref. No:</strong></li>
-                <li><strong class="ticket-details">Status:</strong></li>
-            </ul>
-        </div>
-        <div style="float: right;">
-            <ul>
-                <li><%=complaint.name%></li>
-                <li><%=complaint.createdAt%></li>
-                <li><%=complaint.openedAt%></li>
-                <li><%=complaint.updatedAt%></li>
-                <li><%=complaint.id%></li>
-                <% if(!complaint.status){ %>
-                   <li>Not Assigned Yet.</li>
-                <% }else{ %>
-                    <li><%=complaint.status%></li>
-                <% } %>
-            </ul>
+    <div class="col-sm-12 col-md-4">
+        <div class="col-12" id="user-info">
+            <h2 class="user-details">User Details:</h2>
+            <img
+                class="img-fluid"
+                id="user-image"
+                src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                alt="user-profile-picture"
+                id="profile-picture"
+            />
+            <div class="details">
+                <ul>
+                    <li><strong>Username: </strong><a href="">@<%=complaint.author.username%></a></li>
+                    <li><strong>Name: </strong><%=complaint.author.firstName%> <%=complaint.author.lastName%></li>
+                    <li><strong>Email: </strong></li>
+                    <li><a href="<%=complaint.author.id.email%>"><%=complaint.author.email%></a></li>
+                </ul>
+            </div>
         </div>
     </div>
-    <hr>
-    <div class="row">
-        <div class="col-sm-12 col-md-6">
-            <form action="/support/<%=complaint._id%>?_method=PUT" method="POST">
-                <div class="form-group">
-                    <label for="" class="ticket-details">Select Status:</label>
-                    <select class="form-control" name="status" id="statusSelect">
-                      <option value="">--Select Status--</option>  
-                      <option value="Open">Open</option>
-                      <option value="Waiting List">Waiting List</option>
-                      <option value="Closed">Closed</option>
-                    </select>
-                    <p id="status-warning"><em>*Note: Submitting the status will automatically notify the user</em></p>
-                  </div>
-                  <div class="form-group">
-                    <input type="submit" value="Submit" class="btn btn-sm btn-success">
-                 </div>
-              </form>
-        </div>
-        <div class="col-sm-12 col-md-6">
-            <form action="/support/<%=complaint._id%>?_method=PUT" method="POST">
-                <div class="form-group">
-                   <label for="" class="ticket-details">Assign To:</label>
-                   <select class="form-control" name="assignedTo" id="statusSelect">
-                     <option value="">--Assign To--</option>  
-                     <option value="Open">John Doe</option>
-                     <option value="Waiting List">Iron Man</option>
-                     <option value="Closed">Aladeen</option>
-                   </select>
+    <div class="col-sm-12 col-md-8">
+        <div class="col-12" id="user-info">
+            <h2 class="user-details" style="text-align: left;">Ticket Information:</h2>
+            <hr class="style-one" />
+            <div class="details">
+                <div style="float: left;">
+                    <ul>
+                        <li><strong class="ticket-details">Title/Subject:</strong></li>
+                        <li><strong class="ticket-details">Created At:</strong></li>
+                        <li><strong class="ticket-details">Opened At:</strong></li>
+                        <li><strong class="ticket-details">Updated At:</strong></li>
+                        <li><strong class="ticket-details">Ticket ID/Ref. No:</strong></li>
+                        <li><strong class="ticket-details">Status:</strong></li>
+                    </ul>
                 </div>
-                <div class="form-group">
-                   <input type="submit" value="Submit" class="btn btn-sm btn-success">
+                <div style="float: right;">
+                    <ul>
+                        <li><%=complaint.name%></li>
+                        <li><%= new Date(complaint.createdAt).toLocaleDateString("en")%></li>
+                        <li><%= new Date(complaint.reviewStartedAt).toLocaleDateString("en")%></li>
+                        <li><%= new Date(complaint.updatedAt).toLocaleDateString("en")%></li>
+                        <li><%=complaint.id%></li>
+                        <% if(!complaint.status){ %>
+                        <li>Not Assigned Yet.</li>
+                        <% }else{ %>
+                        <li><%=complaint.status%></li>
+                        <% } %>
+                    </ul>
                 </div>
-             </form>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <form action="/support/<%=complaint._id%>?_method=PUT" method="POST">
+                        <div class="form-group">
+                            <label for="" class="ticket-details">Select Status:</label>
+                            <select class="form-control" name="status" id="statusSelect">
+                                <option value="">--Select Status--</option>
+                                <option value="Open">Open</option>
+                                <option value="Waiting-List">Waiting List</option>
+                                <option value="Closed">Closed</option>
+                            </select>
+                            <p id="status-warning"><em>*Note: Submitting the status will automatically notify the user</em></p>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Submit" class="btn btn-sm btn-success" />
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <form action="/support/<%=complaint._id%>?_method=PUT" method="POST">
+                        <div class="form-group">
+                            <label for="" class="ticket-details">Assign To:</label>
+                            <select class="form-control" name="assignedTo" id="statusSelect">
+                                <option value="">--Assign To--</option>
+                                <option value="Open">John Doe</option>
+                                <option value="Waiting-List">Iron Man</option>
+                                <option value="Closed">Aladeen</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Submit" class="btn btn-sm btn-success" />
+                        </div>
+                    </form>
+                    <form action="/support/<%=complaint._id%>?_method=PUT" method="POST">
+                        <div class="form-group">
+                            <Button type="submit" class="btn btn-alert btn-md">resolve</Button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <h3 id="ticket-desc-header">Description:</h3>
+            <hr />
+            <div>
+                <p id="ticket-desc"><%=complaint.desc%></p>
+            </div>
         </div>
     </div>
-    <h3 id="ticket-desc-header">Description:</h3>
-    <hr>
-    <div>
-       <p id="ticket-desc"><%=complaint.desc%></p>
-    </div>
-    </div>
-</div>
 </div>
 <%-include("../partials/footer")%>

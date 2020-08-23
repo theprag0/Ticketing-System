@@ -15,9 +15,9 @@ var complaintSchema = new mongoose.Schema(
             lastName: String,
             email: String,
         },
-        status: String /** pending => createdAt
-        open => reviewStartedAt
-        resolved => updatedAt */,
+        status: String /** Pending => createdAt
+        Open => reviewStartedAt
+        Close => updatedAt */,
         assignedTo: String,
     },
     {
