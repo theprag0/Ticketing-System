@@ -5,18 +5,18 @@
         <div class="card border-primary mb-3">
             <div class="card-header">
                 <strong>Query: </strong>
-                <% if(complaint.status=="pending"){ %>
-                <div class="status-circle" id="open"></div>
-                <% }else if(complaint.status=="open"){ %>
-                <div class="status-circle" id="waiting-list"></div>
-                <% }else if(complaint.status=="resolved"){ %>
-                <div class="status-circle" id="closed"></div>
+                <% if(complaint.status=="Pending"){ %>
+                <div class="status-circle" id="Open"></div>
+                <% }else if(complaint.status=="Open"){ %>
+                <div class="status-circle" id="Waiting-List"></div>
+                <% }else if(complaint.status=="Close"){ %>
+                <div class="status-circle" id="Closed"></div>
                 <% } %>
             </div>
             <div class="card-body">
                 <h3 class="card-title"><%=complaint.name%></h3>
                 <em
-                    ><p id="createdAt"><strong>Created On:</strong> <%=complaint.createdAt%></p></em
+                    ><p id="createdAt"><strong>Created On:</strong> <%=new Date(complaint.createdAt).toLocaleDateString('en')%></p></em
                 >
                 <p class="card-text" id="description"><%=complaint.desc%></p>
                 <hr />
@@ -24,11 +24,11 @@
                 <span>
                     <% if(!complaint.status){ %>
                     <p>Not Assigned Yet.</p>
-                    <% }else if(complaint.status && complaint.status=="open"){ %>
+                    <% }else if(complaint.status && complaint.status=="Open"){ %>
                     <p><%=complaint.status%></p>
-                    <% }else if(complaint.status && complaint.status=="pending"){ %>
+                    <% }else if(complaint.status && complaint.status=="Pending"){ %>
                     <p><%=complaint.status%></p>
-                    <% }else if(complaint.status && complaint.status=="resolved"){ %>
+                    <% }else if(complaint.status && complaint.status=="Closed"){ %>
                     <p><%=complaint.status%></p>
                     <% } %>
                 </span>

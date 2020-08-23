@@ -15,7 +15,7 @@ router.post('/user', isLoggedIn, async (req, res, next) => {
         complaint.username = req.user.username; // this is bad practice! prefer using only id. no harcoded usernames. if user updates username.
         complaint.name = req.body.name;
         complaint.desc = req.body.desc;
-        complaint.status = 'pending';
+        complaint.status = 'Pending';
         const newComplaint = await complaint.save();
         if (!newComplaint) {
             req.flash('error', 'Something went wrong. Please try again');

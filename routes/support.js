@@ -23,8 +23,8 @@ router.get('/support/:id', async (req, res) => {
             req.flash('error', 'Something went wrong. Please try again');
             return res.redirect('back');
         }
-        if (foundComplaint.status === 'pending') {
-            foundComplaint.status = 'open';
+        if (foundComplaint.status === 'Pending') {
+            foundComplaint.status = 'Open';
             foundComplaint.reviewStartedAt = Date.now();
             const startedComplaint = await foundComplaint.save();
             return res.render('support/show', { complaint: startedComplaint });
@@ -61,8 +61,8 @@ router.get('/support/:id', async (req, res) => {
 // Add status by updating db
 router.put('/support/:id', async (req, res) => {
     try {
-        const foundComplaint = await Complaint.findById(req.params.id).populate('author.id');
-        foundComplaint.status = 'resolved';
+        const foundComplaint = await Complaint.findById(req.params.id).populate('author');
+        foundComplaint.status = 'Close';
         const resolvedComplaint = await foundComplaint.save();
         emailServer.sendVerificartionEmail(resolvedComplaint);
         req.flash('success', 'The user has been notified about the update!');
