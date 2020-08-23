@@ -4,7 +4,7 @@ var complaintSchema = new mongoose.Schema(
     {
         name: String,
         desc: String,
-        reviewStartedAt: { type: Date, default: Date.now },
+        reviewStartedAt: { type: Date },
         author: {
             id: {
                 type: mongoose.Schema.Types.ObjectId,
