@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router({ mergeParams: true });
 var Complaint = require('../models/complaints');
+const emailServer = require('../utils/sendEmail');
 
 // SUPPORT ROUTES
 // Show all complaints
@@ -63,11 +64,12 @@ router.put('/support/:id', async (req, res) => {
         const foundComplaint = await Complaint.findById(req.params.id).populate('author.id');
         foundComplaint.status = 'resolved';
         const resolvedComplaint = await foundComplaint.save();
-        sendVerificartionEmail(resolvedComplaint);
+        emailServer.sendVerificartionEmail(resolvedComplaint);
         req.flash('success', 'The user has been notified about the update!');
         return res.redirect('back');
     } catch (err) {
-        return main().catch(console.error);
+        req.flash('error', 'Something went wrong. Please try again');
+        return res.redirect('back');
     }
 });
 
