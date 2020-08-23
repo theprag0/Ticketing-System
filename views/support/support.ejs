@@ -1,0 +1,42 @@
+<%- include("../partials/header.ejs") %>
+<div class="row">
+    <% complaint.forEach(function(complaint){ %>
+        <div class="col-sm-12 col-xs-12 col-lg-4">
+        <div class="card border-primary mb-3">
+            <div class="card-header"><strong>Query: </strong>
+                <% if(complaint.status=="Open"){ %>
+                    <div class="status-circle" id="open"></div>
+                <% }else if(complaint.status=="Waiting List"){ %>
+                    <div class="status-circle" id="waiting-list"></div>
+                <% }else if(complaint.status=="Closed"){ %>
+                    <div class="status-circle" id="closed"></div>
+                <% }else if(!complaint.status){ %>
+                    <div class="status-circle" id="waiting-list"></div>
+                <% } %>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title"><%=complaint.name%></h3>
+              <em><p id="createdAt"><strong>Created On:</strong> <%=complaint.createdAt%></p></em>
+              <p class="card-text" id="description"><%=complaint.desc%></p>
+              <hr>
+              <h6 class="card-title">Status:</h6>
+              <span>
+              <% if(!complaint.status){ %>
+                  <p>Not Assigned Yet.</p>
+              <% }else if(complaint.status && complaint.status=="Open"){ %>
+                  <p><%=complaint.status%></p>
+              <% }else if(complaint.status && complaint.status=="Waiting List"){ %>
+                <p><%=complaint.status%></p>
+              <% }else if(complaint.status && complaint.status=="Closed"){ %>
+                  <p><%=complaint.status%></p>
+              <% } %>
+              </span>
+              <a href="/support/<%=complaint._id%>" class="btn btn-primary btn-sm">More Info</a>
+            </div>
+          </div> 
+           
+        </div> 
+        <% }) %>
+</div>    <!--ROW ENDS HERE-->
+
+    <%- include("../partials/footer.ejs") %>
