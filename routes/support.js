@@ -17,7 +17,7 @@ router.get('/support', function (req, res) {
 //Show more info about a ticket
 router.get('/support/:id', async (req, res) => {
     try {
-        const foundComplaint = await Complaint.findById(req.params.id).populate('author.id');
+        const foundComplaint = await Complaint.findById(req.params.id).populate('author');
         if (!foundComplaint) {
             req.flash('error', 'Something went wrong. Please try again');
             return res.redirect('back');
