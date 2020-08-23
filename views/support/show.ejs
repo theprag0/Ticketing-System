@@ -86,6 +86,11 @@
                             <input type="submit" value="Submit" class="btn btn-sm btn-success" />
                         </div>
                     </form>
+                    <form action="/support/<%=complaint._id%>?_method=PUT" method="POST">
+                        <div class="form-group">
+                            <Button type="submit" class="btn btn-alert btn-md">resolve</Button>
+                        </div>
+                    </form>
                 </div>
             </div>
             <h3 id="ticket-desc-header">Description:</h3>
