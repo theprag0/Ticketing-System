@@ -1,38 +1,39 @@
-var express=require("express");
-var router=express.Router({mergeParams:true});
-var passport=require("passport");
-var User=require("../models/user");
-var Complaint=require("../models/complaints");
+var express = require('express');
+var router = express.Router({ mergeParams: true });
+var Complaint = require('../models/complaints');
 
 // USER ROUTES
 // Render the complaint form
-router.get("/user",isLoggedIn,function(req,res){
-    res.render("user/user");
+router.get('/user', isLoggedIn, function (req, res) {
+    res.render('user/user');
 });
 // Post new complaint
-router.post("/user",isLoggedIn,function(req,res){
-    var author = {
-        id: req.user._id,
-        username: req.user.username
-    }
-    var name=req.body.name;
-    var desc=req.body.desc;
-    var newComplaint={author:author,name:name,desc:desc};
-    Complaint.create(newComplaint,function(err,complaint){
-        if(err){
-            req.flash("error","Something went wrong. Please try again");
-            console.log(err);
-        }else{
-            res.redirect("/");
+router.post('/user', isLoggedIn, async (req, res, next) => {
+    try {
+        const complaint = new Complaint();
+        complaint.author = req.user._id;
+        complaint.username = req.user.username; // this is bad practice! prefer using only id. no harcoded usernames. if user updates username.
+        complaint.name = req.body.name;
+        complaint.desc = req.body.desc;
+        complaint.status = 'pending';
+        const newComplaint = await complaint.save();
+        if (!newComplaint) {
+            req.flash('error', 'Something went wrong. Please try again');
+            return res.redirect('back');
         }
-    });
+        req.flash('success', 'new complaint was successfully created!');
+        return res.redirect('back');
+    } catch (err) {
+        req.flash('error', 'Something went wrong. Please try again');
+        return res.redirect('back');
+    }
 });
 
-function isLoggedIn(req, res, next){
-    if(req.isAuthenticated()){
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
         return next();
     }
-    req.flash("error","You must be logged in to do that");
-    res.redirect("/login");
+    req.flash('error', 'You must be logged in to do that');
+    res.redirect('/login');
 }
-module.exports=router;
+module.exports = router;
