@@ -1,11 +1,9 @@
 require('dotenv').config();
-const Complaint = require('./models/complaints'),
-    Support = require('./models/support');
+require('./dbConnection');
 
 var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
-    mongoose = require('mongoose'),
     methodOverride = require('method-override'),
     flash = require('connect-flash'),
     passport = require('passport'),
@@ -19,13 +17,6 @@ var userRoutes = require('./routes/user'),
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-mongoose
-    .connect('mongodb://localhost:27017/ticket_system', {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
-    .then(() => console.log('Connected to DB!'))
-    .catch((error) => console.log(error.message));
 app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -35,7 +26,7 @@ app.use(flash());
 // AUTH CONFIG
 app.use(
     require('express-session')({
-        secret: 'He he he',
+        secret: process.env.SECRET,
         resave: false,
         saveUninitialized: false,
     })
