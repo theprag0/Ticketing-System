@@ -2,10 +2,11 @@ var express = require('express');
 var router = express.Router({ mergeParams: true });
 var Complaint = require('../models/complaints');
 const emailServer = require('../utils/sendEmail');
+const middlewareObj = require('../middleware/index');
 
 // SUPPORT ROUTES
 // Show all complaints
-router.get('/support', function (req, res) {
+router.get(middlewareObj.isAdmin, '/support', function (req, res) {
     Complaint.find({}, function (err, foundComplaint) {
         if (err) {
             console.log(err);
@@ -16,7 +17,7 @@ router.get('/support', function (req, res) {
 });
 
 //Show more info about a ticket
-router.get('/support/:id', async (req, res) => {
+router.get(middlewareObj.isAdmin, '/support/:id', async (req, res) => {
     try {
         const foundComplaint = await Complaint.findById(req.params.id).populate('author');
         if (!foundComplaint) {
@@ -59,7 +60,7 @@ router.get('/support/:id', async (req, res) => {
 //     });
 
 // Add status by updating db
-router.put('/support/:id', async (req, res) => {
+router.put(middlewareObj.isAdmin, '/support/:id', async (req, res) => {
     try {
         const foundComplaint = await Complaint.findById(req.params.id).populate('author');
         foundComplaint.status = 'Close';
