@@ -53,9 +53,9 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use(userRoutes);
-app.use(supportRoutes);
-app.use(authRoutes);
+app.use('/user', userRoutes);
+app.use('/support', supportRoutes);
+app.use('/', authRoutes);
 
 app.listen(process.env.PORT || 3000, process.env.IP, function () {
     console.log('The Server Has Started.');

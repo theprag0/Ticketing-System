@@ -2,23 +2,20 @@ var mongoose = require('mongoose');
 var User = require('./user');
 var complaintSchema = new mongoose.Schema(
     {
-        name: String,
-        desc: String,
+        name: { type: String, required: true },
+        desc: { type: String },
         reviewStartedAt: { type: Date },
         author: {
-            id: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'User',
-            },
-            username: String,
-            firstName: String,
-            lastName: String,
-            email: String,
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
         },
-        status: String /** Pending => createdAt
+        status: { type: String } /** Pending => createdAt
         Open => reviewStartedAt
         Close => updatedAt */,
-        assignedTo: String,
+        assignedTo: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+        },
     },
     {
         timestamps: true,
