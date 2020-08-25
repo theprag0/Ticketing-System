@@ -65,6 +65,7 @@ router
         try {
             const foundComplaint = await Complaint.findById(req.params.id).populate('author');
             foundComplaint.status = 'Close';
+            foundComplaint.archivingTime = Date.now() + 86400000; // 24 hours
             const resolvedComplaint = await foundComplaint.save();
             emailServer.sendVerificartionEmail(resolvedComplaint);
             req.flash('success', 'The user has been notified about the update!');
