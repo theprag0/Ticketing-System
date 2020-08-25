@@ -44,10 +44,15 @@
                     <li class="nav-item">
                         <a href="/register" class="nav-link">Sign Up</a>
                     </li>
+                    <% } else { %> <% if(currentUser && currentUser.role === "admin") { %>
+                    <li class="nav-item">
+                        <a href="/support" class="nav-link">Support panel</a>
+                    </li>
                     <% } else { %>
                     <li class="nav-item">
                         <a href="/user/<%= currentUser._id %>" class="nav-link">My Tickets</a>
                     </li>
+                    <% } %>
                     <li class="nav-item">
                         <a href="/logout" class="nav-link">Logout</a>
                     </li>
