@@ -7,7 +7,7 @@ const middlewareObj = require('../middleware/index');
 // SUPPORT ROUTES
 // Show all complaints
 router.get('/support', middlewareObj.isAdmin, function (req, res) {
-    Complaint.find({}, function (err, foundComplaint) {
+    Complaint.find({ archived: false }, function (err, foundComplaint) {
         if (err) {
             console.log(err);
         } else {
