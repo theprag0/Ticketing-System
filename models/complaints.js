@@ -9,6 +9,7 @@ var complaintSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
         },
+        archived: { type: Boolean, default: false },
         status: { type: String } /** Pending => createdAt
         Open => reviewStartedAt
         Close => updatedAt */,

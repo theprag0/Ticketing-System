@@ -34,7 +34,7 @@ router
 // Get history page with all posted complaints
 router.get('/:d', middlewareObj.isLoggedIn, async (req, res, next) => {
     try {
-        const complaints = await Complaint.find({ author: req.user._id });
+        const complaints = await Complaint.find({ archived: false, author: req.user._id });
         if (!complaints) {
             req.flash('error', 'Something went wrong. Please try again');
             return res.redirect('back');
