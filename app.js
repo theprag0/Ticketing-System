@@ -3,6 +3,7 @@ require('./dbConnection');
 
 const express = require('express'),
     app = express(),
+    compression = require('compression'),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
     flash = require('connect-flash'),
@@ -17,6 +18,7 @@ const userRoutes = require('./routes/user'),
     supportRoutes = require('./routes/support'),
     authRoutes = require('./routes/auth');
 
+app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
