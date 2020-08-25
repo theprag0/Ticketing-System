@@ -32,7 +32,7 @@ router
     });
 
 // Get history page with all posted complaints
-router.get('/:d', middlewareObj.isLoggedIn, async (req, res, next) => {
+router.get('/:id', middlewareObj.isLoggedIn, async (req, res, next) => {
     try {
         const complaints = await Complaint.find({ archived: false, author: req.user._id });
         if (!complaints) {

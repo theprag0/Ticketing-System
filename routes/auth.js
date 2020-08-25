@@ -50,4 +50,11 @@ router.post('/login', middlewareObj.notLoggedIn, function (req, res) {
     })(req, res);
 });
 
+//Logout logic
+router.get('/logout', middlewareObj.isLoggedIn, (req, res, next) => {
+    req.logout();
+    req.flash('success', 'Thank you for visiting ticketing system, welcome back again!');
+    res.redirect('/');
+});
+
 module.exports = router;
