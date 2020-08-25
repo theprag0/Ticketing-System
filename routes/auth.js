@@ -30,7 +30,12 @@ router.post('/register', middlewareObj.notLoggedIn, function (req, res) {
             res.redirect('back');
         } else {
             passport.authenticate('local')(req, res, function () {
-                req.flash('success', 'Thank You for registering to the Ticketing System ' + user.username + '!');
+                req.flash(
+                    'success',
+                    'Thank You for registering to the Ticketing System ' +
+                        user.username +
+                        '!',
+                );
                 res.redirect('/');
             });
         }
@@ -54,7 +59,10 @@ router.post('/login', middlewareObj.notLoggedIn, function (req, res) {
 //Logout logic
 router.get('/logout', middlewareObj.isLoggedIn, (req, res, next) => {
     req.logout();
-    req.flash('success', 'Thank you for visiting ticketing system, welcome back again!');
+    req.flash(
+        'success',
+        'Thank you for visiting ticketing system, welcome back again!',
+    );
     res.redirect('/');
 });
 

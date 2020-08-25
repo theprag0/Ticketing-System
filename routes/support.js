@@ -20,7 +20,9 @@ router.get('/', middlewareObj.isAdmin, function (req, res) {
 router
     .get('/:id', middlewareObj.isAdmin, async (req, res) => {
         try {
-            const foundComplaint = await Complaint.findById(req.params.id).populate('author');
+            const foundComplaint = await Complaint.findById(
+                req.params.id,
+            ).populate('author');
             if (!foundComplaint) {
                 req.flash('error', 'Something went wrong. Please try again');
                 return res.redirect('back');
@@ -29,7 +31,9 @@ router
                 foundComplaint.status = 'Open';
                 foundComplaint.reviewStartedAt = Date.now();
                 const startedComplaint = await foundComplaint.save();
-                return res.render('support/show', { complaint: startedComplaint });
+                return res.render('support/show', {
+                    complaint: startedComplaint,
+                });
             }
             res.render('support/show', { complaint: foundComplaint });
         } catch (err) {
@@ -63,12 +67,17 @@ router
     // Add status by updating db
     .put('/:id', middlewareObj.isAdmin, async (req, res) => {
         try {
-            const foundComplaint = await Complaint.findById(req.params.id).populate('author');
+            const foundComplaint = await Complaint.findById(
+                req.params.id,
+            ).populate('author');
             foundComplaint.status = 'Close';
             foundComplaint.archivingTime = Date.now() + 86400000; // 24 hours
             const resolvedComplaint = await foundComplaint.save();
             emailServer.sendVerificartionEmail(resolvedComplaint);
-            req.flash('success', 'The user has been notified about the update!');
+            req.flash(
+                'success',
+                'The user has been notified about the update!',
+            );
             return res.redirect('back');
         } catch (err) {
             req.flash('error', 'Something went wrong. Please try again');

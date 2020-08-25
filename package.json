@@ -6,7 +6,9 @@
     "scripts": {
         "start": "node app.js",
         "start:dev": "nodemon app.js",
-        "test": "node app.js"
+        "test": "node app.js",
+        "prettier:test": "prettier --check \"**/**/*.js\"",
+        "prettier:fix": "prettier --write \"**/**/*.js\""
     },
     "author": "Praghadiesh",
     "license": "ISC",
@@ -28,6 +30,21 @@
         "passport-local-mongoose": "^6.0.1"
     },
     "devDependencies": {
-        "nodemon": "^2.0.4"
+        "husky": "^4.2.5",
+        "nodemon": "^2.0.4",
+        "prettier": "^2.1.0"
+    },
+    "prettier": {
+        "tabWidth": 4,
+        "singleQuote": true,
+        "trailingComma": "all",
+        "arrowParens": "always",
+        "proseWrap": "always"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "npm run prettier:test",
+            "pre-push": "npm run prettier:test"
+        }
     }
 }

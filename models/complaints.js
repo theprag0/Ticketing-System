@@ -11,7 +11,9 @@ var complaintSchema = new mongoose.Schema(
         },
         archived: { type: Boolean, default: false },
         archivingTime: { type: Date },
-        status: { type: String } /** Pending => createdAt
+        status: {
+            type: String,
+        } /** Pending => createdAt
         Open => reviewStartedAt
         Close => updatedAt */,
         assignedTo: {
@@ -21,7 +23,7 @@ var complaintSchema = new mongoose.Schema(
     },
     {
         timestamps: true,
-    }
+    },
 );
 
 var Complaint = mongoose.model('Complaint', complaintSchema);
