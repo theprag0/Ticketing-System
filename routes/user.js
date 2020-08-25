@@ -1,14 +1,15 @@
 var express = require('express');
 var router = express.Router({ mergeParams: true });
 var Complaint = require('../models/complaints');
+const middlewareObj = require('../middleware/index');
 
 // USER ROUTES
 // Render the complaint form
-router.get('/user', isLoggedIn, function (req, res) {
+router.get('/user', middlewareObj.isLoggedIn, function (req, res) {
     res.render('user/user');
 });
 // Post new complaint
-router.post('/user', isLoggedIn, async (req, res, next) => {
+router.post('/user', middlewareObj.isLoggedIn, async (req, res, next) => {
     try {
         const complaint = new Complaint();
         complaint.author = req.user._id;
@@ -29,11 +30,4 @@ router.post('/user', isLoggedIn, async (req, res, next) => {
     }
 });
 
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    req.flash('error', 'You must be logged in to do that');
-    res.redirect('/login');
-}
 module.exports = router;

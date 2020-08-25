@@ -6,7 +6,7 @@ const middlewareObj = require('../middleware/index');
 
 // SUPPORT ROUTES
 // Show all complaints
-router.get(middlewareObj.isAdmin, '/support', function (req, res) {
+router.get('/support', middlewareObj.isAdmin, function (req, res) {
     Complaint.find({}, function (err, foundComplaint) {
         if (err) {
             console.log(err);
@@ -17,7 +17,7 @@ router.get(middlewareObj.isAdmin, '/support', function (req, res) {
 });
 
 //Show more info about a ticket
-router.get(middlewareObj.isAdmin, '/support/:id', async (req, res) => {
+router.get('/support/:id', middlewareObj.isAdmin, async (req, res) => {
     try {
         const foundComplaint = await Complaint.findById(req.params.id).populate('author');
         if (!foundComplaint) {
@@ -60,7 +60,7 @@ router.get(middlewareObj.isAdmin, '/support/:id', async (req, res) => {
 //     });
 
 // Add status by updating db
-router.put(middlewareObj.isAdmin, '/support/:id', async (req, res) => {
+router.put('/support/:id', middlewareObj.isAdmin, async (req, res) => {
     try {
         const foundComplaint = await Complaint.findById(req.params.id).populate('author');
         foundComplaint.status = 'Close';
