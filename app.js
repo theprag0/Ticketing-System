@@ -1,16 +1,19 @@
 require('dotenv').config();
 require('./dbConnection');
 
-var express = require('express'),
+const express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
     flash = require('connect-flash'),
+    mongoose = require('mongoose'),
+    session = require('express-session'),
+    mongoStore = require('connect-mongo')(session),
     passport = require('passport'),
     LocalStrategy = require('passport-local'),
     User = require('./models/user');
 
-var userRoutes = require('./routes/user'),
+const userRoutes = require('./routes/user'),
     supportRoutes = require('./routes/support'),
     authRoutes = require('./routes/auth');
 
@@ -25,10 +28,12 @@ app.use(flash());
 
 // AUTH CONFIG
 app.use(
-    require('express-session')({
+    session({
         secret: process.env.SECRET,
         resave: false,
         saveUninitialized: false,
+        store: new mongoStore({ mongooseConnection: mongoose.connection }),
+        cookie: { maxAge: 86400000 },
     })
 );
 app.use(passport.initialize());
