@@ -1,6 +1,4 @@
 const User = require('../models/user');
-
-var User = require('../models/user');
 var Support = require('../models/support');
 var Complaint = require('../models/complaints');
 var middlewareObj = {};
@@ -13,8 +11,8 @@ middlewareObj.isLoggedIn = function (req, res, next) {
     res.redirect('/login');
 };
 
-middlewareObj.isAdmin = (req, res, user, next) => {
-    if (req.isAuthenticated() && user.role === 'admin') {
+middlewareObj.isAdmin = (req, res, next) => {
+    if (req.isAuthenticated() && req.user.role === 'admin') {
         return next();
     } else {
         req.flash('error', 'You are not allowed to view this page!');
