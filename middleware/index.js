@@ -20,4 +20,14 @@ middlewareObj.isAdmin = (req, res, next) => {
     }
 };
 
+middlewareObj.notLoggedIn = (req, res, next) => {
+    if (req.user) {
+        req.flash('error', 'You are already logged in to the application!');
+        res.redirect('back');
+        return;
+    } else {
+        next();
+    }
+};
+
 module.exports = middlewareObj;

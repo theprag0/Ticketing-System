@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router({ mergeParams: true });
 var passport = require('passport');
 const User = require('../models/user');
+const middlewareObj = require('../middleware/index');
 
 // HOME ROUTE
 router.get('/', function (req, res) {
@@ -9,11 +10,11 @@ router.get('/', function (req, res) {
 });
 
 // REGISTER ROUTES
-router.get('/register', function (req, res) {
+router.get('/register', middlewareObj.notLoggedIn, function (req, res) {
     res.render('auth/register');
 });
 
-router.post('/register', function (req, res) {
+router.post('/register', middlewareObj.notLoggedIn, function (req, res) {
     var newUser = new User({
         username: req.body.username,
         firstName: req.body.firstName,
@@ -36,11 +37,11 @@ router.post('/register', function (req, res) {
 });
 
 // LOGIN ROUTES
-router.get('/login', function (req, res) {
+router.get('/login', middlewareObj.notLoggedIn, function (req, res) {
     res.render('auth/login');
 });
 
-router.post('/login', function (req, res) {
+router.post('/login', middlewareObj.notLoggedIn, function (req, res) {
     passport.authenticate('local', {
         successRedirect: '/',
         failureRedirect: '/login',
