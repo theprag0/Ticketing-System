@@ -30,7 +30,7 @@ router.post('/register', middlewareObj.notLoggedIn, function (req, res) {
         } else {
             passport.authenticate('local')(req, res, function () {
                 req.flash('success', 'Thank You for registering to the Ticketing System ' + user.username + '!');
-                res.redirect('/user/newUser._id');
+                res.redirect('/');
             });
         }
     });
