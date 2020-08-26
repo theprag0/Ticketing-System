@@ -24,9 +24,9 @@
                 <span>
                     <% if(!complaint.status){ %>
                     <p>Not Assigned Yet.</p>
-                    <% }else if(complaint.status && complaint.status=="Open"){ %>
-                    <p><%=complaint.status%></p>
                     <% }else if(complaint.status && complaint.status=="Pending"){ %>
+                    <p><%=complaint.status%></p>
+                    <% }else if(complaint.status && complaint.status=="Open"){ %>
                     <p><%=complaint.status%></p>
                     <% }else if(complaint.status && complaint.status=="Close"){ %>
                     <p><%=complaint.status%></p>
