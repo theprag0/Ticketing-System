@@ -13,13 +13,13 @@ ul {
 ul > li {
     padding: 5px;
 }
-#open {
+#Open {
     background-color: green;
 }
-#close {
+#Close {
     background-color: red;
 }
-#waiting-list {
+#Pending {
     background-color: yellow;
 }
 /* SUPPORT PAGE */
