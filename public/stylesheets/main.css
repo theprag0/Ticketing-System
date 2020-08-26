@@ -104,7 +104,7 @@ hr.style-one {
     display: flex;
     flex-direction: row;
 }
-#ticket-desc-header {
+.ticket-desc-header{
     margin-top: 0.7em;
     padding-left: 15px;
     font-size: 1.5em;
