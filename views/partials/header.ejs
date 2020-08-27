@@ -17,7 +17,7 @@
         <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <a class="navbar-brand" href="/">Ticketing System</a>
             <button
                 class="navbar-toggler"
@@ -62,7 +62,7 @@
         </nav>
 
         <!-- FLASH MESSAGES -->
-        <div class="container mt-3">
+        <div class="container">
             <% if(error && error.length>0){ %>
             <div class="alert alert-danger" role="alert"><%=error%></div>
             <% } %> <% if(success && success.length>0){ %>

@@ -1,7 +1,6 @@
 const User = require('../models/user');
-var Support = require('../models/support');
-var Complaint = require('../models/complaints');
-var middlewareObj = {};
+const Complaint = require('../models/complaints');
+let middlewareObj = {};
 
 middlewareObj.isLoggedIn = function (req, res, next) {
     if (req.isAuthenticated()) {

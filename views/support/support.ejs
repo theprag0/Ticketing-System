@@ -1,4 +1,6 @@
 <%- include("../partials/header.ejs") %>
+<section>
+<div class="container">
 <div class="row">
     <% complaint.forEach(function(complaint){ %>
     <div class="col-sm-12 col-xs-12 col-lg-4">
@@ -38,6 +40,8 @@
     </div>
     <% }) %>
 </div>
+</div>
+</section>
 <!--ROW ENDS HERE-->
 
 <%- include("../partials/footer.ejs") %>

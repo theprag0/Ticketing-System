@@ -1,8 +1,9 @@
-var express = require('express');
-var router = express.Router();
-var Complaint = require('../models/complaints');
+const express = require('express');
+const router = express.Router();
+const Complaint = require('../models/complaints');
 const emailServer = require('../utils/sendEmail');
 const middlewareObj = require('../middleware/index');
+const utils = require('../utils/utils');
 
 // SUPPORT ROUTES
 // Show all complaints
@@ -85,30 +86,4 @@ router
         }
     });
 
-function responseTime(a, b) {
-    var time=Math.floor((b-a)/60000);
-    if(time<=60){
-      return time + " mins";
-    }else if(time>60){
-        return time/60 + " hours"
-    }else if(time=0){
-        return time+ " mins, Lightning fast!! Employee Of the Month";
-    }
-};
-
-function resolveTime(a,b,c,d){
-    if(c==undefined || d==undefined){
-       c=0;
-       d=0; 
-    }
-    var openToClose=Math.floor((b-a)/60000);
-    var pendingToReopen=Math.floor((d-c)/60000);
-    var time=openToClose-pendingToReopen;
-    if(time<=60){
-        return time + " mins";
-      }else if(time>60){
-          return time/60 + " hours"
-      }
-}
-
-module.exports=router;
+module.exports = router;

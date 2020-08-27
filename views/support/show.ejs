@@ -1,4 +1,6 @@
 <%-include("../partials/header")%>
+<section>
+<div class="container">
 <h1 class="mb-3">Ticket Info</h1>
 <hr />
 <div class="row" style="margin-bottom: 100px;">
@@ -36,100 +38,6 @@
                         <li><strong class="ticket-details">Ticket ID/Ref. No:</strong></li>
                         <li><strong class="ticket-details">Status:</strong></li>
                     </ul>
-<div class="col-sm-12 col-md-4">
-    <div class="col-12" id="user-info">
-<h2 class="user-details">User Details:</h2>
-<img class="img-fluid" id="user-image" src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="user-profile-picture" id="profile-picture">
-<div class="details">
-    <ul>
-        <li><strong>Username: </strong><a href="">@<%=complaint.author.id.username%></a></li>
-        <li><strong>Name: </strong><%=complaint.author.id.firstName%> <%=complaint.author.id.lastName%></li>
-        <li><strong>Email: </strong></li>
-        <li><a href="<%=complaint.author.id.email%>"><%=complaint.author.id.email%></a></li>
-    </ul>
-</div>
-</div>
-</div>
-<div class="col-sm-12 col-md-8">
-    <div class="col-12" id="user-info">
-    <h2 class="user-details" style="text-align: left;">Ticket Information:</h2>
-    <hr class="style-one">
-    <div class="details">
-        <div style="float: left;">
-            <ul>
-                <li><strong class="ticket-details">Title/Subject:</strong></li>
-                <li><strong class="ticket-details">Created At:</strong></li>
-                <li><strong class="ticket-details">Ticket ID/Ref. No:</strong></li>
-                <li><strong class="ticket-details">Status:</strong></li>
-                <li><strong class="ticket-details">Assigned To:</strong></li>
-                <li><strong class="ticket-details">Opened At:</strong></li>
-                <li><strong class="ticket-details">Closed At:</strong></li>
-            </ul>
-        </div>
-        <div style="float: right;">
-            <ul>
-                <li><%=complaint.name%></li>
-                <li><%=complaint.createdAt%></li>
-                <li><%=complaint.id%></li>
-                <!-- TICKET STATUS LIST ITEM STARTS HERE -->
-                <% if(!complaint.status){ %>
-                   <li>Not Assigned Yet.</li>
-                <% }else if(complaint.status){ %>
-                    <li><%=complaint.status%></li>
-                <% } %>
-                <!-- ASSIGNED TO LIST ITEM STARTS HERE -->
-                <% if(!complaint.assignedTo){ %>
-                    <li>Not Assigned Yet.</li>
-                <% }else if(complaint.assignedTo){ %>
-                   <li><%=complaint.assignedTo%></li> 
-                <% } %>
-                <!-- OPENED AT LIST ITEM STARTS HERE -->
-                <% if(complaint.reviewStartedAt){ %>
-                       <li><%=complaint.reviewStartedAt%></li>
-                <% }else{ %>
-                     <li>Not Opened Yet.</li>
-                <% } %>
-                <!-- CLOSED AT LIST ITEM STARTS HERE -->
-                <% if(complaint.status==="Closed"){ %>
-                       <li><%=complaint.updatedAt%></li>
-                <% }else if(complaint.status==="Open"){ %>
-                     <li>The Ticket is in Progress..</li>
-                <% }else{ %>
-                   <li> -- </li> 
-                <% } %>
-            </ul>
-        </div>
-    </div>
-    <hr>
-    <div class="row">
-        <div class="col-sm-12 col-md-6">
-            <form action="/support/<%=complaint._id%>?_method=PUT" method="POST">
-                <div class="form-group">
-                    <label for="" class="ticket-details">Select Status:</label>
-                    <select class="form-control" name="form[status]" id="statusSelect">
-                      <option value="">--Select Status--</option>  
-                      <option value="Open">Open</option>
-                      <option value="Pending">Pending</option>
-                      <option value="Re-Open">Re-Open</option>
-                      <option value="Closed">Closed</option>
-                    </select>
-                    <p id="status-warning"><em>*Note: Submitting the status will automatically notify the user</em></p>
-                  </div>
-                  <div class="form-group">
-                    <input type="submit" value="Submit" class="btn btn-sm btn-success">
-                 </div>
-              </form>
-        </div>
-        <div class="col-sm-12 col-md-6">
-            <form action="/support/<%=complaint._id%>?_method=PUT" method="POST">
-                <div class="form-group">
-                   <label for="" class="ticket-details">Assign To:</label>
-                   <select class="form-control" name="form[assignedTo]" id="statusSelect">
-                     <option value="">--Assign To--</option>  
-                     <option value="Support-1">Support-1</option>
-                     <option value="Support-2">Support-2</option>
-                     <option value="Support-3">Support-3</option>
-                   </select>
                 </div>
                 <div style="float: right;">
                     <ul>
@@ -187,35 +95,30 @@
                     </form>
                 </div>
             </div>
-            <h3 id="ticket-desc-header">Description:</h3>
-            <hr />
+            <h3 class="ticket-desc-header">Description:</h3>
+            <hr>
             <div>
-                <p id="ticket-desc"><%=complaint.desc%></p>
+               <p id="ticket-desc"><%=complaint.desc%></p>
+            </div>
+            <h3 class="ticket-desc-header">Ticket Summary:</h3>
+            <hr>
+            <div class="details">
+                <div style="float: left;">
+                    <ul>
+                        <li><strong class="ticket-details">Response Time:</strong></li>
+                        <li><strong class="ticket-details">Resolve Time:</strong></li>
+                    </ul> 
+                </div>
+                <div style="float: right;">
+                     <ul>
+                         <li><%=complaint.responseTime%></li>
+                         <li><%=complaint.resolveTime%></li>
+                     </ul>
+                </div>
             </div>
         </div>
     </div>
-    <h3 class="ticket-desc-header">Description:</h3>
-    <hr>
-    <div>
-       <p id="ticket-desc"><%=complaint.desc%></p>
-    </div>
-    <h3 class="ticket-desc-header">Ticket Summary:</h3>
-    <hr>
-    <div class="details">
-        <div style="float: left;">
-            <ul>
-                <li><strong class="ticket-details">Response Time:</strong></li>
-                <li><strong class="ticket-details">Resolve Time:</strong></li>
-            </ul> 
-        </div>
-        <div style="float: right;">
-             <ul>
-                 <li><%=complaint.responseTime%></li>
-                 <li><%=complaint.resolveTime%></li>
-             </ul>
-        </div>
-    </div>
-    </div>
 </div>
 </div>
+</section>
 <%-include("../partials/footer")%>

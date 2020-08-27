@@ -13,6 +13,7 @@ const express = require('express'),
     passport = require('passport'),
     LocalStrategy = require('passport-local'),
     User = require('./models/user');
+utils = require('./utils/utils');
 
 const userRoutes = require('./routes/user'),
     supportRoutes = require('./routes/support'),
@@ -47,7 +48,11 @@ passport.deserializeUser(User.deserializeUser());
 // passport.use(new LocalStrategy(Support.authenticate()));
 // passport.serializeUser(Support.serializeUser());
 // passport.deserializeUser(Support.deserializeUser());
-
+require('moment/min/locales.min');
+moment.locale('en');
+app.locals.moment = moment;
+app.locals.responseTime = utils.responseTime;
+app.locals.resolveTime = utils.resolveTime;
 app.use(function (req, res, next) {
     res.locals.currentUser = req.user;
     res.locals.error = req.flash('error');
