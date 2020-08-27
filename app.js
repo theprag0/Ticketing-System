@@ -8,12 +8,13 @@ const express = require('express'),
     methodOverride = require('method-override'),
     flash = require('connect-flash'),
     mongoose = require('mongoose'),
+    moment = require('moment'),
     session = require('express-session'),
     mongoStore = require('connect-mongo')(session),
     passport = require('passport'),
     LocalStrategy = require('passport-local'),
-    User = require('./models/user');
-utils = require('./utils/utils');
+    User = require('./models/user'),
+    utils = require('./utils/utils');
 
 const userRoutes = require('./routes/user'),
     supportRoutes = require('./routes/support'),
