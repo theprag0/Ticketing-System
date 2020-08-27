@@ -62,11 +62,11 @@
         </nav>
 
         <!-- FLASH MESSAGES -->
-        <div class="container">
+        <div class="container flashMessageContainer">
             <% if(error && error.length>0){ %>
-            <div class="alert alert-danger" role="alert"><%=error%></div>
+            <div class="alert alert-danger message" role="alert"><%=error%></div>
             <% } %> <% if(success && success.length>0){ %>
-            <div class="alert alert-success" role="alert"><%=success%></div>
+            <div class="alert alert-success message" role="alert"><%=success%></div>
             <% } %>
         </div>
 

@@ -9,6 +9,21 @@ body {
     line-height: 1.5;
     background: #f2f2f2;
 }
+.flashMessageContainer {
+    position: fixed;
+    top: 90px;
+    left: 10%;
+    width: 80%;
+    height: 2.5rem;
+    max-width: 100%;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.flashMessageContainer .message {
+    flex-basis: 100%;
+}
 section {
     margin-top: 66px;
     padding: 4rem 0;
