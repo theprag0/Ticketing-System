@@ -2,11 +2,13 @@
 module.exports.responseTime = function (a, b) {
     var time = Math.floor((b - a) / 60000);
     if (time <= 60) {
-        return time + ' mins';
+        return time.toFixed(2) + ' mins';
     } else if (time > 60) {
-        return time / 60 + ' hours';
+        return (time / 60).toFixed(2) + ' hours';
     } else if ((time = 0)) {
-        return time + ' mins, Lightning fast!! Employee Of the Month';
+        return (
+            time.toFixed(2) + ' mins, Lightning fast!! Employee Of the Month'
+        );
     }
 };
 

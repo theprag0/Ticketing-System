@@ -1,3 +1,4 @@
+require('dotenv').config();
 var nodemailer = require('nodemailer');
 
 module.exports.sendVerificartionEmail = async (complaint) => {

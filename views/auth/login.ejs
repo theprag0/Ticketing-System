@@ -1,6 +1,4 @@
 <%- include("../partials/header.ejs") %>
-<section>
-<div class="container">
 <div class="row">
     <div style="width: 30%; margin: 25px auto;">
         <div class="col-md-12 text-center">
@@ -15,17 +13,12 @@
             </div>
       
             <div class="form-group">
-              <div class="input-icons">
-                <i id="passIcon" class="fa fa-eye-slash icon" onclick="Toggle()"></i>
                 <input type="password" id="inputPassword" class="form-control input-field" placeholder="Password" name="password" required>
               <label for="inputPassword">Password</label>
-              </div>
             </div>
       
             <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
           </form>
     </div>
 </div>
-</div>
-</section>
 <%- include("../partials/footer.ejs") %>

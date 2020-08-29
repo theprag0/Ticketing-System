@@ -1,108 +1,59 @@
-html,
-body {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-body {
+body{
     font-size: 16px;
-    line-height: 1.5;
-    background: #f2f2f2;
-}
-.flashMessageContainer {
-    position: fixed;
-    top: 90px;
-    left: 10%;
-    width: 80%;
-    height: 2.5rem;
-    max-width: 100%;
-    background-color: transparent;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.flashMessageContainer .message {
-    flex-basis: 100%;
-}
-section {
-    margin-top: 66px;
-    padding: 4rem 0;
-}
-.hero {
+    margin: 0;
     padding: 0;
-    margin-top: 0;
-    background-image: url('/images/hero.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    height: 60vh;
+    line-height: 1.5;
+    background:#f2f2f2 ;
 }
-.hero .row {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    height: 60vh;
-}
-.hero .contentContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    height: 30vh;
-}
-.hero h1,
-.hero p,
-.hero a {
-    text-align: center;
-    color: white;
-}
-ul {
+ul{
     padding: 0;
     margin: 0;
     list-style: none;
 }
-ul > li {
+ul>li{
     padding: 5px;
 }
-#Open {
+#open{
     background-color: green;
 }
-#Close {
+#closed{
     background-color: red;
 }
-#Pending {
+#waiting-list{
     background-color: yellow;
 }
+.hide{
+    display: none;
+}
+
 /* SUPPORT PAGE */
 h3,
-h6,
-h1 {
-    margin: 0;
-    padding: 0;
+h6,h1{
+margin: 0;
+padding: 0;
 }
-h1 {
+h1{
     margin-top: 75px;
     font-size: 30px;
     font-family: 'Overpass', sans-serif;
 }
 .card-header,
 .card-title,
-.ticket-header {
+.ticket-header{
     font-family: 'Josefin Sans', sans-serif;
     font-size: 16px;
     font-weight: bold;
 }
-.card-header {
+.card-header{
     display: flex;
     flex-direction: row;
 }
 #description,
-#createdAt {
+#createdAt{
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
 }
-.status-circle {
+.status-circle{
     border-radius: 50%;
     width: 15px;
     height: 15px;
@@ -112,37 +63,38 @@ h1 {
     /* margin-left: 220px;
     margin-top: 5px; */
 }
+
 /* TICKET SHOW PAGE  */
-.row div {
+.row div{
     padding-left: 8px;
     padding-right: 8px;
-}
-#user-info {
+  }
+#user-info{
     background-color: white;
     padding: 15px;
     border-radius: 15px;
     margin-bottom: 10px;
-    box-shadow: 3px 3px #f2f2f2;
+    box-shadow: 3px 3px #f2f2f2 ;
 }
-.user-details {
+.user-details{
     font-size: 20px;
     font-family: 'Overpass', sans-serif;
     font-weight: 500;
     letter-spacing: 0.3em;
     text-align: center;
 }
-#user-image {
-    width: 100%;
+#user-image{
+    width:100%;
     height: auto;
     padding: 0;
     border-radius: 15px;
 }
-.details {
-    font-family: 'Montserrat', sans-serif;
+.details{
+    font-family:'Montserrat', sans-serif;
     display: flex;
     flex-direction: rows;
 }
-.ticket-details {
+.ticket-details{
     font-family: 'Josefin Sans', sans-serif;
     font-weight: 700;
 }
@@ -152,24 +104,34 @@ hr.style-one {
     background: #333;
     background-image: linear-gradient(to right, #ccc, #333, #ccc);
 }
-.status-forms {
+.status-forms{
     display: flex;
     flex-direction: row;
 }
-.ticket-desc-header {
+.ticket-desc-header{
     margin-top: 0.7em;
     padding-left: 15px;
     font-size: 1.5em;
-    font-family: 'Josefin Sans', sans-serif;
+    font-family:'Josefin Sans', sans-serif;
     letter-spacing: 0.1em;
 }
-#ticket-desc {
+#ticket-desc{
     padding-left: 20px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
 }
-#status-warning {
+#status-warning{
     font-weight: lighter;
     font-size: 0.8em;
     font-family: 'Montserrat', sans-serif;
+}
+
+/* REGISTER PAGE */
+
+.register-left{
+    text-align: center;
+    padding: 30px;
+}
+.register-left p{
+    padding: 20px 20px 0;
 }

@@ -7,7 +7,9 @@
         <div class="card border-primary mb-3">
             <div class="card-header">
                 <strong>Query: </strong>
-                <% if(complaint.status=="Pending"){ %>
+                <% if(complaint.status=="Not Assigned Yet"){ %>
+                  <div class="status-circle" id="Pending"></div>
+                <% }else if(complaint.status=="Pending"){ %>
                 <div class="status-circle" id="Pending"></div>
                 <% }else if(complaint.status=="Open"){ %>
                 <div class="status-circle" id="Open"></div>
@@ -18,13 +20,13 @@
             <div class="card-body">
                 <h3 class="card-title"><%=complaint.name%></h3>
                 <em
-                    ><p id="createdAt"><strong>Created On:</strong> <%=new Date(complaint.createdAt).toLocaleDateString('en')%></p></em
+                    ><p id="createdAt"><strong>Created On:</strong> <%=moment(complaint.createdAt).format("dddd, MMMM Do YYYY, h:mm:ss a");%></p></em
                 >
                 <p class="card-text" id="description"><%=complaint.desc%></p>
                 <hr />
                 <h6 class="card-title">Status:</h6>
                 <span>
-                    <% if(!complaint.status){ %>
+                    <% if(complaint.status=="Not Assigned Yet"){ %>
                     <p>Not Assigned Yet.</p>
                     <% }else if(complaint.status && complaint.status=="Pending"){ %>
                     <p><%=complaint.status%></p>

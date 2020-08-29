@@ -21,8 +21,12 @@ router.post('/register', middlewareObj.notLoggedIn, function (req, res) {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
-        role: req.body.role || 'user',
     });
+    if (req.body.Admincode == 'Perry the platypus is delighted') {
+        newUser.role = 'admin';
+    } else {
+        newUser.role = 'user';
+    }
     User.register(newUser, req.body.password, function (err, user) {
         if (err) {
             req.flash('error', 'Something went wrong. Please Try Again.');

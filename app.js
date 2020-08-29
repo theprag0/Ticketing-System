@@ -65,6 +65,10 @@ app.use('/user', userRoutes);
 app.use('/support', supportRoutes);
 app.use('/', authRoutes);
 
+app.get('/register_trial', function (req, res) {
+    res.render('register_trial');
+});
+
 app.listen(process.env.PORT || 3000, process.env.IP, function () {
     console.log('The Server Has Started.');
 });

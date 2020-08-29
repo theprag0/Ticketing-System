@@ -1,8 +1,17 @@
 <%-include("../partials/header")%>
-<section>
-<div class="container">
 <div class="row">
-    <div style="width: 30%; margin: 25px auto;">
+  <section id="user-roles">
+    <div class="col-md-12 text-center">
+      <h2>Welcome to the Ticketing Sytem</h2>
+      <p>Please choose a method to Sign Up</p>
+    </div>
+    <div class="col-md-12">
+      <button class="btn btn-lg btn-success btn-block" onclick="signUpToggle()" id="as-user">Sign Up as User</button>
+      <button class="btn btn-lg btn-warning btn-block" onclick="signUpToggle()" id="as-admin">Sign Up as Admin</button>
+    </div>
+  </section>
+  <section id="sign-up-form" class="hide">
+    <div style="width: 35%; margin: 0 auto;" id="user-sign-up">
         <div class="col-md-12 text-center">
             <h1 class="mb-3">Sign Up as User</h1>
         </div>
@@ -48,13 +57,38 @@
             <label for="password">Password</label>
               <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>
           </div>
-    
+          
+         <div class="form-group" class="hide" id="admin-code">
+           <label for="">Enter Admin Code</label>
+           <input type="text" class="form-control" placeholder="Admin Code" name="Admincode">
+         </div>
+
           <div class="form-group">
             <button class="btn btn-lg btn-primary btn-block">Sign Up</button>
         </div>
-      </form>
-    </div>
-</div>
+          </form>
+          </div>
 </div>
 </section>
+</div>
+
+<script>
+  var userRoles=document.getElementById("user-roles");
+  var userButton=document.getElementById("as-user");
+  var adminButton=document.getElementById("as-admin");
+  var signUpForm=document.getElementById("sign-up-form");
+  var adminCode=document.getElementById("admin-code");
+
+  userButton.onclick=function signUpToggle(){
+        signUpForm.classList.remove("hide");
+        userRoles.classList.add("hide");
+        adminCode.classList.add("hide");
+  }
+
+  adminButton.onclick=function signUpToggle(){
+        signUpForm.classList.remove("hide");
+        userRoles.classList.add("hide");
+        adminCode.classList.remove("hide");
+  }
+</script>
 <%-include("../partials/footer")%>
