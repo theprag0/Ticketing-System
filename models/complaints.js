@@ -20,7 +20,10 @@ var complaintSchema = new mongoose.Schema(
         status: {
             type: String,
         },
-        assignedTo: String,
+        assignedTo: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+        },
         responseTime: String,
         resolveTime: String,
     },

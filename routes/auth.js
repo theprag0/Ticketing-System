@@ -65,7 +65,7 @@ router.get('/logout', middlewareObj.isLoggedIn, (req, res, next) => {
     req.logout();
     req.flash(
         'success',
-        'Thank you for visiting ticketing system, welcome back again!',
+        'Logged you out, Thank you for visiting ticketing system!',
     );
     res.redirect('/');
 });

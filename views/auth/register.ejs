@@ -1,76 +1,93 @@
-<%-include("../partials/header")%>
+<%- include("../partials/header")%>
+<style>
+  body{
+    background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+ }
+</style>
+
 <div class="row">
-  <section id="user-roles">
-    <div class="col-md-12 text-center">
-      <h2>Welcome to the Ticketing Sytem</h2>
-      <p>Please choose a method to Sign Up</p>
-    </div>
-    <div class="col-md-12">
-      <button class="btn btn-lg btn-success btn-block" onclick="signUpToggle()" id="as-user">Sign Up as User</button>
-      <button class="btn btn-lg btn-warning btn-block" onclick="signUpToggle()" id="as-admin">Sign Up as Admin</button>
-    </div>
-  </section>
-  <section id="sign-up-form" class="hide">
-    <div style="width: 35%; margin: 0 auto;" id="user-sign-up">
-        <div class="col-md-12 text-center">
-            <h1 class="mb-3">Sign Up as User</h1>
-        </div>
-        <form class="form-signin needs-validation novalidate" action="/register" method="POST">
-         <div class="form-row">
-            <div class="mb-3 col-md-6">
-                <label for="firstName">First name</label>
-                <input type="text" class="form-control is-valid" id="firstName" placeholder="First Name" name="firstName" required>
-                <!-- <div class="valid-feedback">
-                    Looks good!
-                  </div> -->
-              </div>
-              <div class="mb-3 col-md-6">
-                <label for="lastName">Last name</label>
-                <input type="text" class="form-control is-valid" id="lastName" placeholder="Last Name" name="lastName" required>
-                <!-- <div class="valid-feedback">
-                    Looks good!
-                  </div> -->
-              </div>
-         </div>
-          <div class="form-group mb-3">
-            <label for="username">Username</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text">@</span>
-              </div>
-              <input type="text" class="form-control" id="username" placeholder="Username" name="username" required>
-              <div class="invalid-feedback" style="width: 100%;">
-                Your username is required.
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group mb-3">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="you@example.com" name="email" required>
-            <div class="invalid-feedback">
-              Please enter a valid email address.
-            </div>
-          </div>
-
-          <div class="form-group ">
-            <label for="password">Password</label>
-              <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>
-          </div>
-          
-         <div class="form-group" class="hide" id="admin-code">
-           <label for="">Enter Admin Code</label>
-           <input type="text" class="form-control" placeholder="Admin Code" name="Admincode">
-         </div>
-
-          <div class="form-group">
-            <button class="btn btn-lg btn-primary btn-block">Sign Up</button>
-        </div>
-          </form>
-          </div>
+<div class="col-md-10 offset-md-1">
+<div class="row">
+<div class="col-md-5 register-left">
+<h3>Sign Up Now</h3>
+<p>Thank You for choosing our Ticketing-System</p>
+<button class="btn btn-primary">About Us</button>
 </div>
+
+<section id="user-roles" class="register-right col-md-7">
+  <div class="col-md-12 text-center">
+    <h2>Welcome to the Ticketing Sytem</h2>
+    <p>Please choose a method to Sign Up</p>
+  </div>
+  <div class="col-md-12">
+    <button class="btn btn-sm btn-outline-success btn-block" onclick="signUpToggle()" id="as-user">Sign Up as User</button>
+    <button class="btn btn-sm btn-info btn-block" onclick="signUpToggle()" id="as-admin">Sign Up as Admin</button>
+  </div>
 </section>
+
+<section id="sign-up-form" class="register-right col-md-7 hide">
+
+    <form class="form-signin needs-validation novalidate" action="/register" method="POST">
+      <div class="register-form">
+        <div class="form-row mb-2">
+           <div class="col-md-6">
+               <label for="firstName">First name</label>
+               <input type="text" class="form-control is-valid" id="firstName" placeholder="First Name" name="firstName" required>
+               <!-- <div class="valid-feedback">
+                   Looks good!
+                 </div> -->
+             </div>
+             <div class="col-md-6">
+               <label for="lastName">Last name</label>
+               <input type="text" class="form-control is-valid" id="lastName" placeholder="Last Name" name="lastName" required>
+               <!-- <div class="valid-feedback">
+                   Looks good!
+                 </div> -->
+             </div>
+        </div>
+         <div class="form-group">
+           <label for="username">Username</label>
+           <div class="input-group">
+             <div class="input-group-prepend">
+               <span class="input-group-text">@</span>
+             </div>
+             <input type="text" class="form-control" id="username" placeholder="Username" name="username" required>
+             <div class="invalid-feedback" style="width: 100%;">
+               Your username is required.
+             </div>
+           </div>
+         </div>
+
+         <div class="form-group">
+           <label for="email">Email</label>
+           <input type="email" class="form-control" id="email" placeholder="you@example.com" name="email" required>
+           <div class="invalid-feedback">
+             Please enter a valid email address.
+           </div>
+         </div>
+
+         <div class="form-group">
+           <label for="password">Password</label>
+             <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>
+         </div>
+         
+        <div class="form-group" class="hide" id="admin-code">
+          <label for="">Enter Admin Code</label>
+          <input type="text" class="form-control" placeholder="Admin Code" name="Admincode">
+        </div>
+
+         <div class="form-group">
+           <button class="btn btn-sm btn-primary">Sign Up</button>
+       </div>
+      </div>
+         </form>
+
+</section>
+
 </div>
+</div>
+</div>
+
 
 <script>
   var userRoles=document.getElementById("user-roles");

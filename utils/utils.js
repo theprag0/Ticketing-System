@@ -21,8 +21,8 @@ module.exports.resolveTime = function (a, b, c, d) {
     var pendingToReopen = Math.floor((d - c) / 60000);
     var time = openToClose - pendingToReopen;
     if (time <= 60) {
-        return time + ' mins';
+        return time.toFixed(2) + ' mins';
     } else if (time > 60) {
-        return time / 60 + ' hours';
+        return (time / 60).toFixed(2) + ' hours';
     }
 };

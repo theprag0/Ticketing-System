@@ -1,28 +1,27 @@
 <%- include("../partials/header.ejs") %>
-<section>
+
 <div class="container">
 <div class="row">
     <% complaint.forEach(function(complaint){ %>
     <div class="col-sm-12 col-xs-12 col-lg-4">
         <div class="card border-primary mb-3">
-            <div class="card-header">
-                <strong>Query: </strong>
-                <% if(complaint.status=="Not Assigned Yet"){ %>
-                  <div class="status-circle" id="Pending"></div>
-                <% }else if(complaint.status=="Pending"){ %>
-                <div class="status-circle" id="Pending"></div>
-                <% }else if(complaint.status=="Open"){ %>
-                <div class="status-circle" id="Open"></div>
-                <% }else if(complaint.status=="Close"){ %>
-                <div class="status-circle" id="Close"></div>
-                <% } %>
-            </div>
             <div class="card-body">
+                <% if(complaint.status=="Not Assigned Yet"){ %>
+                    <div class="status-circle" id="Pending"></div>
+                  <% }else if(complaint.status=="Pending"){ %>
+                  <div class="status-circle" id="Pending"></div>
+                  <% }else if(complaint.status=="Open"){ %>
+                  <div class="status-circle" id="Open"></div>
+                  <% }else if(complaint.status=="Closed"){ %>
+                  <div class="status-circle float-right" id="Closed"></div>
+                  <% } %>
+                <h2>Ticket: </h2>
+                <hr>
                 <h3 class="card-title"><%=complaint.name%></h3>
                 <em
                     ><p id="createdAt"><strong>Created On:</strong> <%=moment(complaint.createdAt).format("dddd, MMMM Do YYYY, h:mm:ss a");%></p></em
                 >
-                <p class="card-text" id="description"><%=complaint.desc%></p>
+                <em><p class="card-text" id="description"><%-complaint.desc.substring(0,100)%>....</p></em>
                 <hr />
                 <h6 class="card-title">Status:</h6>
                 <span>
@@ -32,7 +31,7 @@
                     <p><%=complaint.status%></p>
                     <% }else if(complaint.status && complaint.status=="Open"){ %>
                     <p><%=complaint.status%></p>
-                    <% }else if(complaint.status && complaint.status=="Close"){ %>
+                    <% }else if(complaint.status && complaint.status=="Closed"){ %>
                     <p><%=complaint.status%></p>
                     <% } %>
                 </span>
@@ -43,7 +42,7 @@
     <% }) %>
 </div>
 </div>
-</section>
+
 <!--ROW ENDS HERE-->
 
 <%- include("../partials/footer.ejs") %>

@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const Complaint = require('../models/complaints');
+const User = require('../models/user');
 const emailServer = require('../utils/sendEmail');
 const middlewareObj = require('../middleware/index');
 const utils = require('../utils/utils');
 
 // SUPPORT ROUTES
 // Show all complaints
-router.get('/', function (req, res) {
+router.get('/', middlewareObj.isAdmin, function (req, res) {
     Complaint.find({ archived: false }, function (err, foundComplaint) {
         if (err) {
             console.log(err);
@@ -18,15 +19,29 @@ router.get('/', function (req, res) {
 });
 
 //Show more info about a ticket
-router.get('/:id', function (req, res) {
+router.get('/:id', middlewareObj.isAdmin, function (req, res) {
     Complaint.findById(req.params.id)
-        .populate('author.id')
+        .populate('author.id assignedTo')
         .exec(function (err, foundComplaint) {
             if (err) {
                 req.flash('error', 'Something went wrong. Please try again');
                 res.redirect('back');
             } else {
-                res.render('support/show', { complaint: foundComplaint });
+                User.find({ role: 'admin' }, function (err, foundAdmin) {
+                    if (err) {
+                        console.log(err);
+                        req.flash(
+                            'error',
+                            'Something went wrong. Please try again',
+                        );
+                        res.redirect('back');
+                    } else {
+                        res.render('support/show', {
+                            complaint: foundComplaint,
+                            admin: foundAdmin,
+                        });
+                    }
+                });
             }
         });
 });
@@ -57,9 +72,9 @@ router.get('/:id', function (req, res) {
 //     })
 
 // Add status by updating db
-router.put('/:id', function (req, res) {
+router.put('/:id', middlewareObj.isAdmin, function (req, res) {
     Complaint.findByIdAndUpdate(req.params.id, req.body.form, { new: true })
-        .populate('author.id')
+        .populate('author.id assignedTo')
         .exec(function (err, foundComplaint) {
             if (err) {
                 console.log(err);

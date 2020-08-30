@@ -55,7 +55,7 @@
                         <% if(!complaint.assignedTo){ %>
                             <li>Not Assigned Yet.</li>
                         <% }else if(complaint.assignedTo){ %>
-                        <li><%=complaint.assignedTo%></li> 
+                        <li><%=complaint.assignedTo.firstName%> <%=complaint.assignedTo.lastName%></li> 
                         <% } %>
                         <!-- OPENED AT LIST ITEM STARTS HERE -->
                         <% if(complaint.reviewStartedAt){ %>
@@ -100,9 +100,9 @@
                             <label for="" class="ticket-details">Assign To:</label>
                             <select class="form-control" name="form[assignedTo]" id="statusSelect">
                                 <option value="">--Assign To--</option>
-                                <option value="John Doe">John Doe</option>
-                                <option value="Iron Man">Iron Man</option>
-                                <option value="Hulk">Hulk</option>
+                                <% admin.forEach(function(user){ %>
+                                      <option value="<%=user.id%>"><%=user.firstName%></option>
+                                <% }); %>
                             </select>
                         </div>
                         <div class="form-group">
