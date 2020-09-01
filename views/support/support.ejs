@@ -7,11 +7,11 @@
         <div class="card border-primary mb-3">
             <div class="card-body">
                 <% if(complaint.status=="Not Assigned Yet"){ %>
-                    <div class="status-circle" id="Pending"></div>
+                  <div class="status-circle float-right" id="Pending"></div>
                   <% }else if(complaint.status=="Pending"){ %>
-                  <div class="status-circle" id="Pending"></div>
+                  <div class="status-circle float-right" id="Pending"></div>
                   <% }else if(complaint.status=="Open"){ %>
-                  <div class="status-circle" id="Open"></div>
+                  <div class="status-circle float-right" id="Open"></div>
                   <% }else if(complaint.status=="Closed"){ %>
                   <div class="status-circle float-right" id="Closed"></div>
                   <% } %>

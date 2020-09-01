@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
 </head>
-<body>
+<body class="<%= typeof page !== 'undefined' &&(page === 'login' || page === 'register') ? 'bg' : '' %>">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2 sticky-top">
         <a class="navbar-brand" href="/">Ticketing System</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

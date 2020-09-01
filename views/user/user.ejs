@@ -8,6 +8,24 @@
                  <input type="text" name="name" placeholder="Enter Title here" class="form-control" required>
             </div>
             <div class="form-group">
+                <label for="ticketType">Ticket Type: <span class="required">*</span></label>
+                <select name="type" id="ticketType" class="form-control" required>
+                    <option value="">--Select Ticket Type--</option>
+                    <option value="Service Request">Service Request</option>
+                    <option value="Incident Request">Incident Request</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="ticketPriority">Ticket Priority: <span class="required">*</span></label>
+                <select name="priority" id="ticketPriority">
+                    <option value=""></option>
+                    <option value="P-01">P-01</option>
+                    <option value="P-02">P-02</option>
+                    <option value="P-03">P-03</option>
+                    <option value="P-04">P-04</option>
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="">Description:</label>
                 <textarea name="desc" class="form-control" cols="30" rows="10" placeholder="Enter your query here" required></textarea>
             </div>

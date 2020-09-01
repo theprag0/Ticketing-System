@@ -12,7 +12,7 @@ router.get('/', function (req, res) {
 
 // REGISTER ROUTES
 router.get('/register', middlewareObj.notLoggedIn, function (req, res) {
-    res.render('auth/register');
+    res.render('auth/register', { page: 'register' });
 });
 
 router.post('/register', middlewareObj.notLoggedIn, function (req, res) {
@@ -48,7 +48,7 @@ router.post('/register', middlewareObj.notLoggedIn, function (req, res) {
 
 // LOGIN ROUTES
 router.get('/login', middlewareObj.notLoggedIn, function (req, res) {
-    res.render('auth/login');
+    res.render('auth/login', { page: 'login' });
 });
 
 router.post('/login', middlewareObj.notLoggedIn, function (req, res) {

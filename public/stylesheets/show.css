@@ -1,0 +1,62 @@
+/* TICKET SHOW PAGE  */
+.row div{
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+#user-info{
+    background-color: white;
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    box-shadow: 3px 3px #f2f2f2 ;
+}
+.user-details{
+    font-size: 20px;
+    font-family: 'Overpass', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-align: center;
+}
+#user-image{
+    width:100%;
+    height: auto;
+    padding: 0;
+    border-radius: 15px;
+}
+.details{
+    font-family:'Montserrat', sans-serif;
+    display: flex;
+    flex-direction: rows;
+}
+.ticket-details{
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 700;
+}
+hr.style-one {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #ccc, #333, #ccc);
+}
+.status-forms{
+    display: flex;
+    flex-direction: row;
+}
+.ticket-desc-header{
+    margin-top: 0.7em; 
+    padding-left: 15px;
+    font-size: 1.5em;
+    font-family:'Josefin Sans', sans-serif;
+    letter-spacing: 0.1em;
+}
+#ticket-desc{
+    padding-left: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+#status-warning{
+    font-weight: lighter;
+    font-size: 0.8em;
+    font-family: 'Montserrat', sans-serif;
+}
+

@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router({ mergeParams: true });
 var Complaint = require('../models/complaints');
 const middlewareObj = require('../middleware/index');
+const emailServer = require('../utils/sendEmail');
 
 // USER ROUTES
 // Render the complaint form
@@ -17,12 +18,17 @@ router.post('/', middlewareObj.isLoggedIn, async function (req, res) {
         complaint.username = req.user.username;
         complaint.name = req.body.name;
         complaint.desc = req.body.desc;
+        complaint.type = req.body.type;
+        complaint.priority = req.body.priority;
         complaint.status = 'Not Assigned Yet';
-        const newComplaint = await complaint.save();
+
+        const newComplaint = await complaint.save({ new: true });
         if (!newComplaint) {
             req.flash('error', 'Something went wrong. Please Try Again.');
             return res.redirect('back');
         }
+        notSeen(newComplaint);
+
         req.flash('success', 'The Ticket was generated successfully!');
         return res.redirect('/');
     } catch (err) {
@@ -51,5 +57,15 @@ router.post('/', middlewareObj.isLoggedIn, async function (req, res) {
 //         return res.redirect('back');
 //     }
 // });
+
+function notSeen(complaint) {
+    var firstAlert = 10 * 1000;
+    //Send alert to open new ticket after 1 hour from creation
+    setTimeout(function () {
+        if (complaint.status === 'Not Assigned Yet') {
+            console.log('You have a pending ticket');
+        }
+    }, firstAlert);
+}
 
 module.exports = router;

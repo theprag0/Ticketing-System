@@ -1,0 +1,33 @@
+/* SUPPORT PAGE */
+h1{
+    margin-top: 75px;
+    font-size: 30px;
+    font-family: 'Overpass', sans-serif;
+}
+.card-title
+{
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+}
+#description,
+#createdAt{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+}
+.status-circle{
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    margin-top: 15px;
+    background-color: yellow;
+}
+.card-body h2{
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    padding-top: 10px;
+}
+.card-body{
+    padding-top: 0;
+}

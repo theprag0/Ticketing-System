@@ -46,31 +46,6 @@ router.get('/:id', middlewareObj.isAdmin, function (req, res) {
         });
 });
 
-// router
-//     .get('/:id', async (req, res) => {
-//         try {
-//             const foundComplaint = await Complaint.findById(
-//                 req.params.id,
-//             ).populate('author');
-//             if (!foundComplaint) {
-//                 req.flash('error', 'Something went wrong. Please try again');
-//                 return res.redirect('back');
-//             }
-//             if (foundComplaint.status === 'Pending') {
-//                 foundComplaint.status = 'Open';
-//                 foundComplaint.reviewStartedAt = Date.now();
-//                 const startedComplaint = await foundComplaint.save();
-//                 return res.render('support/show', {
-//                     complaint: startedComplaint,
-//                 });
-//             }
-//             res.render('support/show', { complaint: foundComplaint });
-//         } catch (err) {
-//             req.flash('error', 'Something went wrong. Please try again');
-//             return res.redirect('back');
-//         }
-//     })
-
 // Add status by updating db
 router.put('/:id', middlewareObj.isAdmin, function (req, res) {
     Complaint.findByIdAndUpdate(req.params.id, req.body.form, { new: true })
@@ -79,6 +54,7 @@ router.put('/:id', middlewareObj.isAdmin, function (req, res) {
             if (err) {
                 console.log(err);
             } else {
+                // SAVE TIMESTAMPS FOR EACH STATUS UPDATE
                 if (foundComplaint.status === 'Open') {
                     foundComplaint.reviewStartedAt = Date.now();
                     // Calculate Response Time of Ticket
@@ -111,6 +87,24 @@ router.put('/:id', middlewareObj.isAdmin, function (req, res) {
                     foundComplaint.resolveTime = timeDifference;
                     foundComplaint.save();
                 }
+                if (
+                    foundComplaint.status ==
+                        ('Open' || 'Pending' || 'Re-Open') &&
+                    foundComplaint.assignedTo
+                ) {
+                    // Set max-hours to resolve ticket
+                    if (foundComplaint.priority === 'P-01') {
+                        priority(2, foundComplaint);
+                    } else if (foundComplaint.priority === 'P-02') {
+                        priority(4);
+                    } else if (foundComplaint.priority === 'P-03') {
+                        priority(8);
+                    } else if (foundComplaint.priority === 'P-04') {
+                        priority(2 * 24);
+                    }
+                } else if (foundComplaint.status == 'Closed') {
+                    stopFunction();
+                }
                 req.flash(
                     'success',
                     'The user has been notified about the update!',
@@ -120,4 +114,51 @@ router.put('/:id', middlewareObj.isAdmin, function (req, res) {
         });
 });
 
+var ticketTimer;
+function priority(maxHour, complaint) {
+    //var maxTime=maxHour*60*60*1000; //Set max-time according to the ticket priority
+    //var firstAlert=1*60*60*1000; //Send the first alert after 1 hour from time of creation
+    var maxTime = 1 * 60 * 1000;
+    var firstAlert = 10 * 1000;
+    // Send alert to open new ticket after 1 hour from creation
+    // for(i=firstAlert;i<=maxTime;i=i+(10*1000)){
+
+    //        const timer= setTimeout(function(){
+    //         if(complaint.status !== "Closed"){
+    //         //    emailServer.sendTimeAlertEmail(complaint);
+    //         console.log("your time has come");
+    //     }else if(complaint.status=='Closed'){
+    //         timer.clearTimeout();
+    //     }
+    //         },i);
+    //     }
+    for (let i = firstAlert; i <= maxTime; i = i + 10 * 1000) {
+        delay(i);
+        if (complaint.status == 'Closed') {
+            break;
+        }
+    }
+
+    function delay(i) {
+        setTimeout(function () {
+            console.log('time limit exceeded!');
+        }, i);
+    }
+
+    //     for(i=firstAlert;i<=maxTime;i=i+(10*1000)){
+    //         if(complaint.status !== "Closed"){
+    //          timeOut=setTimeout(function(){
+    //             //    emailServer.sendTimeAlertEmail(complaint);
+    //             console.log("your time has come");
+    //             },i);
+    //             if(complaint.status=='Closed'){
+    //                 break;
+    //                 clearTimeout(timeOut);
+    //             }
+    //     }
+    // }
+}
+function stopFunction() {
+    clearTimeout(ticketTimer);
+}
 module.exports = router;

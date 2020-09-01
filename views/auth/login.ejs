@@ -1,9 +1,4 @@
 <%- include("../partials/header")%>
-<style>
-    body{
-      background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-   }
-  </style>
 
 <div class="modal-dialog">
     <div class="col-sm-9 main-section">
@@ -13,10 +8,10 @@
              <img src="/images/face.png" alt="default-user-profile-pic">
          </div>
          <div class="col-12 login-form">
-             <form action="/login" method="POST">
+             <form action="/login" method="POST" autocomplete="off">
                <div class="form-group">
                    <label for="inputUsername">Username</label>
-                  <input type="text" id="inputUsername" class="form-control" placeholder="Username" name="username" autocomplete="off">
+                  <input type="text" id="inputUsername" class="form-control" placeholder="Username" name="username">
                </div>
                <div class="form-group">
                    <label for="inputPassword">Password</label>

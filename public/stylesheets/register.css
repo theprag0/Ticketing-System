@@ -1,0 +1,62 @@
+/* REGISTER PAGE */
+#user-roles{
+    margin-top:100px; 
+    padding:70px;
+}
+
+.register-left{
+    margin-top: 130px;
+    text-align: center;
+    padding: 30px;
+    color: white;
+}
+.register-left p{
+    padding: 20px 20px 0;
+}
+.register-left .btn-primary{
+    border-radius:1.2em;
+    border: none;
+    font-weight: 600;
+    width: 120px;
+    padding: 10px;
+    color: #555;
+    background: #f8f8f8;
+    transition-duration: 0.5s;
+}
+.register-left .btn-primary:hover{
+    background: #000;
+    color: white;
+    transition-duration: 0.5s;
+}
+
+.register-right{
+    border: none;
+    background: #f8f8f8;
+   padding: 10px;
+   margin-top: 15px;
+   margin-bottom: 20px;
+   background-repeat: no-repeat;
+   border-top-left-radius: 12% 50%;
+   border-bottom-left-radius: 12% 50%;
+   padding: 30px;
+}
+.register-form{
+   width: 90%;
+   margin-left: 30px;
+}
+.register-right .btn-primary{
+    float: right;
+    border-radius:1.2em;
+    border: none;
+    font-weight: 600;
+    width: 120px;
+    padding: 10px;
+    color: #f8f8f8;
+    background:black;
+    transition-duration: 0.3s;
+}
+.register-right .btn-primary:hover{
+    background: green;
+    transition-duration: 0.4s;
+}
+

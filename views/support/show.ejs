@@ -32,6 +32,7 @@
                 <div style="float: left;">
                     <ul>
                         <li><strong class="ticket-details">Title/Subject:</strong></li>
+                        <li><strong class="ticket-details">Type:</strong></li>
                         <li><strong class="ticket-details">Created At:</strong></li>
                         <li><strong class="ticket-details">Ticket ID/Ref. No:</strong></li>
                         <li><strong class="ticket-details">Status:</strong></li>
@@ -42,35 +43,52 @@
                 </div>
                 <div style="float: right;">
                     <ul>
+                        
                         <li><%=complaint.name%></li>
+                        <li><%=complaint.type%></li>
                         <li><%=moment(complaint.createdAt).format("dddd, MMMM Do YYYY, h:mm:ss a")%></li>
-                        <li><%=complaint.id%></li>
+                        <li>
+                            <% if(complaint.type==='Service Request'){ %>
+                                SR-<%=complaint.ticketId%>
+                            <% }else{ %>
+                                IR-<%=complaint.ticketId%>
+                            <% } %>
+                        </li>
                         <!-- TICKET STATUS LIST ITEM STARTS HERE -->
+                        <li>
                         <% if(!complaint.status){ %>
-                        <li>Not Assigned Yet.</li>
+                             Not Assigned Yet.
                         <% }else if(complaint.status){ %>
-                            <li><%=complaint.status%></li>
+                            <%=complaint.status%>
                         <% } %>
+                        </li>
                         <!-- ASSIGNED TO LIST ITEM STARTS HERE -->
+                        <li>
                         <% if(!complaint.assignedTo){ %>
-                            <li>Not Assigned Yet.</li>
+                              Not Assigned Yet.
                         <% }else if(complaint.assignedTo){ %>
-                        <li><%=complaint.assignedTo.firstName%> <%=complaint.assignedTo.lastName%></li> 
+                           <%=complaint.assignedTo.firstName%> <%=complaint.assignedTo.lastName%>
                         <% } %>
+                        </li>
                         <!-- OPENED AT LIST ITEM STARTS HERE -->
+                        <li>
                         <% if(complaint.reviewStartedAt){ %>
-                            <li><%=moment(complaint.reviewStartedAt).format("dddd, MMMM Do YYYY, h:mm:ss a")%></li>
+                            <%=moment(complaint.reviewStartedAt).format("dddd, MMMM Do YYYY, h:mm:ss a")%>
                         <% }else{ %>
-                            <li>Not Opened Yet.</li>
+                            Not Opened Yet.
                         <% } %>
+                        </li>
                         <!-- CLOSED AT LIST ITEM STARTS HERE -->
+                        <li>
                         <% if(complaint.status==="Closed"){ %>
-                            <li><%=moment(complaint.reviewClosedAt).format("dddd, MMMM Do YYYY, h:mm:ss a")%></li>
+                            <%=moment(complaint.reviewClosedAt).format("dddd, MMMM Do YYYY, h:mm:ss a")%>
                         <% }else if(complaint.status==="Open"){ %>
-                            <li>The Ticket is in Progress..</li>
+                            The Ticket is in Progress..
                         <% }else{ %>
-                        <li> -- </li> 
+                            --  
                         <% } %>
+                        </li>
+
                     </ul>
                 </div>
             </div>

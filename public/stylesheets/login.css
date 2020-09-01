@@ -1,0 +1,61 @@
+/* LOGIN PAGE */
+.main-section{
+    margin: 0 auto;
+    padding: 0;
+    margin-top: 130px;
+}
+.modal-content{
+    border: none;
+    background-color: #434e5a ;
+    opacity: .8;
+    padding: 0 18px;
+    border-radius: 10px;
+}
+.user-img{
+    margin-top: -60px;
+    margin-bottom: 45px;
+}
+.user-img img{
+    width: 120px;
+    height: 120px;
+}
+
+.form-group #inputUsername,
+.form-group #inputPassword{
+    margin-bottom: 25px;
+    height:42px;
+    border-radius: 5px;
+    border: 0;
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+.login-form button{
+    width: 40%;
+    margin: 5px 0 25px;
+}
+.login-form .btn-success{
+    background-color:#000;
+    font-size: 19px;
+    border-radius: 5px;
+    border: 1px solid #daf1ff;
+    transition-duration: 0.4s;
+}
+.login-form .btn-success:hover{
+    background-color: rgb(33, 189, 46);
+    transition-duration: 0.4s;
+}
+.login-form label{
+    color: #f8f8f8;
+    font-weight: 500;
+}
+.forgot{
+    padding-bottom: 10px ;
+}
+.forgot a{
+  color: #f8f8f8;  
+  text-decoration: none;
+}
+.forgot a:hover{
+    transition-duration: 0.3s;
+    color: skyblue;
+}

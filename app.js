@@ -14,7 +14,8 @@ const express = require('express'),
     passport = require('passport'),
     LocalStrategy = require('passport-local'),
     User = require('./models/user'),
-    utils = require('./utils/utils');
+    utils = require('./utils/utils'),
+    AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const userRoutes = require('./routes/user'),
     supportRoutes = require('./routes/support'),
