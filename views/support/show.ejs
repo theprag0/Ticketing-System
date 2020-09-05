@@ -26,6 +26,7 @@
     </div>
     <div class="col-sm-12 col-md-8">
         <div class="col-12" id="user-info">
+            <h4 class="float-right text-center"><%=complaint.priority%></h4>
             <h2 class="user-details" style="text-align: left;">Ticket Information:</h2>
             <hr class="style-one" />
             <div class="details">
@@ -33,6 +34,7 @@
                     <ul>
                         <li><strong class="ticket-details">Title/Subject:</strong></li>
                         <li><strong class="ticket-details">Type:</strong></li>
+                        <li><strong class="ticket-details">Priority:</strong></li>
                         <li><strong class="ticket-details">Created At:</strong></li>
                         <li><strong class="ticket-details">Ticket ID/Ref. No:</strong></li>
                         <li><strong class="ticket-details">Status:</strong></li>
@@ -46,6 +48,12 @@
                         
                         <li><%=complaint.name%></li>
                         <li><%=complaint.type%></li>
+                        <li>
+                            <%=complaint.priority%>
+                           <% if(complaint.priority==='P-01') { %>
+                              (High Priority)
+                           <% } %>
+                        </li>
                         <li><%=moment(complaint.createdAt).format("dddd, MMMM Do YYYY, h:mm:ss a")%></li>
                         <li>
                             <% if(complaint.type==='Service Request'){ %>
@@ -82,7 +90,7 @@
                         <li>
                         <% if(complaint.status==="Closed"){ %>
                             <%=moment(complaint.reviewClosedAt).format("dddd, MMMM Do YYYY, h:mm:ss a")%>
-                        <% }else if(complaint.status==="Open"){ %>
+                        <% }else if(complaint.status==="Open"||"Re-Open"||"Pending"){ %>
                             The Ticket is in Progress..
                         <% }else{ %>
                             --  
@@ -101,7 +109,7 @@
                             <select class="form-control" name="form[status]" id="statusSelect">
                                 <option value="">--Select Status--</option>
                                 <option value="Open">Open</option>
-                                <option value="Pending">Pending</option>
+                                <option value="Pending" onclick="emailBox()">Pending</option>
                                 <option value="Re-Open">Re-Open</option>
                                 <option value="Closed">Closed</option>
                             </select>
@@ -129,6 +137,17 @@
                     </form>
                 </div>
             </div>
+            <!-- Send Email to user when needed -->
+            <section id="sendEmail">
+                <div class="row">
+                 <div class="col-md-12">
+                     <form action="">
+                         <textarea name="" id="" cols="60" rows="10"></textarea>
+                     </form>
+                 </div>
+                </div>
+            </section>
+
             <h3 class="ticket-desc-header">Description:</h3>
             <hr>
             <div>
@@ -155,4 +174,22 @@
 </div>
 </div>
 </section>
+
+<script>
+    var maxTime=60*1000;
+    var firstAlert=10*1000;
+
+    if(window.Worker){
+        var myWorker=new Worker('../worker.js');
+        var info={status:complaint.status,maxTime:60*1000};
+        myWorker.postMessage(info);
+
+        myWorker.onmessage=function(e){
+            for(var i=firstAlert;i<=maxTime;i=i+firstAlert){
+                e.data.doSetTimeout(i);
+            }
+        }
+    }
+
+</script>
 <%-include("../partials/footer")%>

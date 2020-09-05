@@ -2,7 +2,7 @@
 <section>
 <div class="row justify-content-center">
     <div class="col-sm-12 col-lg-6">
-        <form action="/user" method="POST">
+        <form action="/user" method="POST" autocomplete="off">
             <div class="form-group">
                 <label for="">Title/Subject:</label>
                  <input type="text" name="name" placeholder="Enter Title here" class="form-control" required>
@@ -17,8 +17,8 @@
             </div>
             <div class="form-group">
                 <label for="ticketPriority">Ticket Priority: <span class="required">*</span></label>
-                <select name="priority" id="ticketPriority">
-                    <option value=""></option>
+                <select name="priority" id="ticketPriority" class="form-control">
+                    <option value="">--Select Ticket Priority--</option>
                     <option value="P-01">P-01</option>
                     <option value="P-02">P-02</option>
                     <option value="P-03">P-03</option>
