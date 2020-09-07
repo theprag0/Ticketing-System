@@ -27,7 +27,7 @@ router.post('/', middlewareObj.isLoggedIn, async function (req, res) {
             req.flash('error', 'Something went wrong. Please Try Again.');
             return res.redirect('back');
         }
-        notSeen(newComplaint);
+        // notSeen(newComplaint);
 
         req.flash('success', 'The Ticket was generated successfully!');
         return res.redirect('/');
@@ -58,14 +58,14 @@ router.post('/', middlewareObj.isLoggedIn, async function (req, res) {
 //     }
 // });
 
-function notSeen(complaint) {
-    var firstAlert = 10 * 1000;
-    //Send alert to open new ticket after 1 hour from creation
-    setTimeout(function () {
-        if (complaint.status === 'Not Assigned Yet') {
-            console.log('You have a pending ticket');
-        }
-    }, firstAlert);
-}
+// function notSeen(complaint) {
+//     var firstAlert = 10 * 1000;
+//     //Send alert to open new ticket after 1 hour from creation
+//     setTimeout(function () {
+//         if (complaint.status === 'Not Assigned Yet') {
+//             console.log('You have a pending ticket');
+//         }
+//     }, firstAlert);
+// }
 
 module.exports = router;

@@ -89,6 +89,7 @@ router.put('/:id', middlewareObj.isAdmin, function (req, res) {
                     foundComplaint.resolveTime = timeDifference;
                     foundComplaint.save();
                 }
+
                 req.flash(
                     'success',
                     'The user has been notified about the update!',
@@ -97,5 +98,14 @@ router.put('/:id', middlewareObj.isAdmin, function (req, res) {
             }
         });
 });
-
+router.post('/email', function (req, res) {
+    var newEmail = {
+        from: req.body.from,
+        to: req.body.to,
+        subject: req.body.subject,
+        text: req.body.text,
+    };
+    emailServer.sendNotificationEmail(newEmail);
+    res.redirect('back');
+});
 module.exports = router;

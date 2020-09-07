@@ -13,3 +13,11 @@ services:
         image: mongo
         ports: 
             - '27017:27017'
+    worker:
+        container_name: email_worker
+        restart: always
+        build: .
+        ports: 
+            - '8080:8080'
+        links: 
+            - mongo

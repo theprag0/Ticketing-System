@@ -106,10 +106,10 @@
                     <form action="/support/<%=complaint._id%>?_method=PUT" method="POST">
                         <div class="form-group">
                             <label for="" class="ticket-details">Select Status:</label>
-                            <select class="form-control" name="form[status]" id="statusSelect">
+                            <select class="form-control" name="form[status]" id="statusSelect" onchange="emailBox(value)">
                                 <option value="">--Select Status--</option>
                                 <option value="Open">Open</option>
-                                <option value="Pending" onclick="emailBox()">Pending</option>
+                                <option value="Pending">Pending</option>
                                 <option value="Re-Open">Re-Open</option>
                                 <option value="Closed">Closed</option>
                             </select>
@@ -138,15 +138,37 @@
                 </div>
             </div>
             <!-- Send Email to user when needed -->
-            <section id="sendEmail">
-                <div class="row">
-                 <div class="col-md-12">
-                     <form action="">
-                         <textarea name="" id="" cols="60" rows="10"></textarea>
-                     </form>
-                 </div>
+            <div class="row">
+                <div class="col-md-12">
+                <button class="btn btn-sm btn-danger ml-2" type="button" data-toggle="collapse" data-target="#collapseEmail" aria-expanded="false" aria-controls="collapseEmail">
+                    Send Email
+                 </button>
+                 <div class="collapse" id="collapseEmail">
+                <div class="card card-body">
+                   
+                        <form action="/email" method="POST">
+                           <div class="form-group">
+                               <label for="email-from">From:</label>
+                               <input type="text" class="form-control" name="from" id="email-from">
+                           </div>
+                           <div class="form-group">
+                               <label for="email-to">To:</label>
+                               <input type="text" class="form-control" name="to" id="email-to" value="<%=complaint.author.id.email%>" disabled>
+                           </div>
+                           <div class="form-group">
+                               <label for="email-subject">Subject:</label>
+                               <input type="text" class="form-control" name="subject" id="email-subject">
+                           </div>
+                           <div class="form-group">
+                               <label for="email-text">Text:</label>
+                               <textarea name="text" id="email-text" cols="30" rows="10" class="form-control"></textarea>
+                           </div>
+                           <input type="submit" name="" id="">
+                        </form>  
+                        </div>
                 </div>
-            </section>
+            </div>
+            </div>
 
             <h3 class="ticket-desc-header">Description:</h3>
             <hr>
@@ -176,20 +198,15 @@
 </section>
 
 <script>
-    var maxTime=60*1000;
-    var firstAlert=10*1000;
-
-    if(window.Worker){
-        var myWorker=new Worker('../worker.js');
-        var info={status:complaint.status,maxTime:60*1000};
-        myWorker.postMessage(info);
-
-        myWorker.onmessage=function(e){
-            for(var i=firstAlert;i<=maxTime;i=i+firstAlert){
-                e.data.doSetTimeout(i);
-            }
+    function emailBox($i){
+        var statusSelect=document.getElementById("statusSelect");
+        var emailBox=document.getElementById("collapseEmail");
+        var selectedValue = statusSelect.options[statusSelect.selectedIndex].value;
+        if(selectedValue=='Pending'){
+        emailBox.style.display="block";
+        }else{
+        emailBox.style.display="none";
         }
     }
-
 </script>
 <%-include("../partials/footer")%>

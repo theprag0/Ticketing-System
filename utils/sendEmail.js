@@ -26,3 +26,19 @@ module.exports.sendVerificartionEmail = async (complaint) => {
             'Admin,\nSupport Team', // plain text body
     });
 };
+
+module.exports.sendNotificationEmail = async (complaint) => {
+    let transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+            user: 'pragwebdev@gmail.com', // generated ethereal user
+            pass: process.env.GMAILPW, // generated ethereal password
+        },
+    });
+    await transporter.sendMail({
+        from: newEmail.from, // sender address
+        to: newEmail.to, // list of receivers
+        subject: newEmail.subject, // Subject line
+        text: newEmail.text,
+    });
+};
