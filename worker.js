@@ -1,6 +1,6 @@
-const mongoose=require('mongoose');
-const Complaint=require('./models/complaints');
-const emailServer=require("./utils/sendEmail")
+const mongoose = require('mongoose');
+const Complaint = require('./models/complaints');
+const emailServer = require('./utils/sendEmail');
 // this.onmessage = function (e) {
 //     var status = e.data.status;
 //     var maxTime = e.data.maxTime;
@@ -18,15 +18,17 @@ const emailServer=require("./utils/sendEmail")
 //     }
 // };
 
-var execute=false;
-setInterval(function(){
-    execute=true;
- },60*60*1000);
-    while(execute=true){
-       Complaint.findById({status:{$all:["Open","Pending","Re-Open"]}},function(err,foundComplaint){
-           if(foundComplaint.assignedTo){
-         emailServer.sendNotificationEmail(foundComplaint);
-           }
-       }) ;       
-    }
-
+var execute = false;
+setInterval(function () {
+    execute = true;
+}, 60 * 60 * 1000);
+while ((execute = true)) {
+    Complaint.findById(
+        { status: { $all: ['Open', 'Pending', 'Re-Open'] } },
+        function (err, foundComplaint) {
+            if (foundComplaint.assignedTo) {
+                emailServer.sendNotificationEmail(foundComplaint);
+            }
+        },
+    );
+}
