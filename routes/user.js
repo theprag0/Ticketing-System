@@ -37,35 +37,25 @@ router.post('/', middlewareObj.isLoggedIn, async function (req, res) {
     }
 });
 
-// Get history page with all posted complaints
-// router.get('/:id', middlewareObj.isLoggedIn, async (req, res, next) => {
-//     try {
-//         const complaints = await Complaint.find({
-//             archived: false,
-//             author: req.user._id,
-//         });
-//         if (!complaints) {
-//             req.flash('error', 'Something went wrong. Please try again');
-//             return res.redirect('back');
-//         } else {
-//             return res.render('user/history', {
-//                 complaints: complaints,
-//             });
-//         }
-//     } catch (err) {
-//         req.flash('error', 'Something went wrong. Please try again');
-//         return res.redirect('back');
-//     }
-// });
-
-// function notSeen(complaint) {
-//     var firstAlert = 10 * 1000;
-//     //Send alert to open new ticket after 1 hour from creation
-//     setTimeout(function () {
-//         if (complaint.status === 'Not Assigned Yet') {
-//             console.log('You have a pending ticket');
-//         }
-//     }, firstAlert);
-// }
+//Get history page with all posted complaints
+router.get('/:id', middlewareObj.isLoggedIn, async (req, res, next) => {
+    try {
+        const complaints = await Complaint.find({
+            archived: false,
+            author :{id:req.user._id},
+        });
+        if (!complaints) {
+            req.flash('error', 'Something went wrong. Please try again');
+            return res.redirect('back');
+        } else {
+            return res.render('user/history', {
+                complaints: complaints,
+            });
+        }
+    } catch (err) {
+        req.flash('error', 'Something went wrong. Please try again');
+        return res.redirect('back');
+    }
+});
 
 module.exports = router;

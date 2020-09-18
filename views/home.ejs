@@ -1,9 +1,103 @@
 <%-include("./partials/header")%>
-    
-<div class="jumbotron">
-    <h1>Welcome to the Ticketing-System</h1>
-    <p>Post and Manage ticketing easily</p>
-    <a href="/user" class="btn btn-lg btn-primary">Add new ticket</a>
-   </div>
-   
+
+<header id="showcase">
+    <div class="gradient-overlay"></div>
+    <div class="container">
+        <div class="row align-items-center justify-content-start" id="intro-header">
+            <div class="col-md-9 align-items-start">
+                    <p id="intro-para" class="text-white">Welcome to Ticket Cloud</p>
+                    <h1 id="intro-head" class="text-white">Easy Ticketing Solutions & <br> Event Handling for your <br> Team</h1>
+                    <a href="/register" class="btn btn-lg btn-primary mt-3 ml-2" id="intro-btn">Get Started</a>
+            </div> 
+        </div>
+    </div>
+    <div class="container">
+    <div class="row" id="arrow-down" style="margin: 0; padding: 0;">
+        <div class="col-sm-12 text-center">
+            <a href="#section-1" class="arrow-down"><i class="fas fa-chevron-down fa-2x"></i></a>
+        </div>
+    </div>
+    </div>
+</header>
+   <section id="section-1">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-12 text-center">
+                 <h1 class="feature-main">Meet our Services</h1>
+                 <p class="feature-head">Linear Support Experience, Simple and easy to Use UI, with Ticket Cloud.</p>
+              </div>
+          </div>
+          <div class="card-deck mb-3 justify-content-center text-center">
+              <div class="card smart-card diffuse-shadow box-hover">
+                  <div class="card-body">
+                    <img src="/images/dashboard.svg" alt="dashboard icon" class="about-icons">
+                    <h5 class="card-title">Interactive Support Panel</h5>
+                    <p class="card-text">View all tickets from most recent to old without any hassle and confusion. Identify the status of the tickets easily to avoid confusion</p>
+                  </div>
+              </div>
+              <div class="card smart-card diffuse-shadow box-hover">
+                  <div class="card-body">
+                    <img src="/images/global-network.svg" alt="user group icon" class="about-icons">
+                    <h5 class="card-title">User roles</h5>
+                    <p class="card-text">Assign admin roles to your support team and assign the complete experience of ticket cloud.</p>
+                  </div>
+              </div>
+            </div>
+            <div class="card-deck justify-content-center text-center">
+                <div class="card smart-card diffuse-shadow box-hover">
+                    <div class="card-body">
+                      <img src="/images/message.svg" alt="email notification icon" class="about-icons">
+                      <h5 class="card-title">Email Notifications</h5>
+                      <p class="card-text">Get notified everytime a new ticket is raised. Our Notification System also notifies users about the current status of tickets and enables support team to send emails on-demand!</p>
+                    </div>
+                </div>
+                <div class="card smart-card diffuse-shadow box-hover">
+                    <div class="card-body">
+                      <img src="/images/planner.svg" alt="time report icon" class="about-icons">
+                      <h5 class="card-title">Response Time Reports</h5>
+                      <p class="card-text">Generate immediate reports for response and resolve times of user tickets. Get complete report of resolve time once the ticket is resolved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </section>
+   <section id="parallax-section">
+       <div class="parallax-1"></div>
+   </section>
+   <footer>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 mb-4">
+                <img src="/images/ticket-cloud-logo.jfif" alt="brand logo">
+            </div>
+            <div class="col-md-6" id="contact">
+                <h3 class="footer-head mb-4 mt-4">Contact the Developer</h3>
+                <p class="footer-text"><strong>Email: </strong> praghadieshnikhil234@gmail.com</p>
+                <a href="https://www.facebook.com/praghadiesh.nikil/"><i class="fab fa-facebook fa-lg"></i></a>
+                <a href="https://www.linkedin.com/in/praghadiesh-nikhil-45b876198/"><i class="fab fa-linkedin fa-lg"></i></a>
+                <a href="https://github.com/theprag0/Ticketing-System" ><i class="fab fa-github fa-lg"></i></a>
+                <a href=""><i class="fab fa-instagram fa-lg"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+   <section id="sub-footer">
+       <div class="container">
+        <p>Sign Up Now! and Get Started &nbsp; &nbsp; &nbsp; &nbsp; <a href="/register" class="btn btn-info btn-lg">Sign Up</a></p>
+       </div>
+   </section>
+  <footer id="end">
+      <div class="container">
+        <p class="float-right">Easy Ticketing Solutions!</p>
+          <p>&copy;2020-2021 Ticket Cloud</p>
+      </div>
+  </footer>
+   <script>
+       var commonContainer=document.getElementById("common-container");
+       var navBar=document.querySelector(".navbar");
+       var navLink=document.querySelector(".nav-item");
+    //   navBar.classList.remove("bg-dark");
+     commonContainer.classList.remove("container");
+     navLink.setAttribute("style","color:red;");
+   </script>
 <%-include("./partials/footer")%>

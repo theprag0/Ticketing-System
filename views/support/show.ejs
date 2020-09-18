@@ -106,7 +106,7 @@
                     <form action="/support/<%=complaint._id%>?_method=PUT" method="POST">
                         <div class="form-group">
                             <label for="" class="ticket-details">Select Status:</label>
-                            <select class="form-control" name="form[status]" id="statusSelect" onchange="emailBox(value)">
+                            <select class="form-control" name="form[status]" id="statusSelect" onclick="emailBox(value)">
                                 <option value="">--Select Status--</option>
                                 <option value="Open">Open</option>
                                 <option value="Pending">Pending</option>
@@ -140,7 +140,7 @@
             <!-- Send Email to user when needed -->
             <div class="row">
                 <div class="col-md-12">
-                <button class="btn btn-sm btn-danger ml-2" type="button" data-toggle="collapse" data-target="#collapseEmail" aria-expanded="false" aria-controls="collapseEmail">
+                <button class="btn btn-sm btn-danger ml-2" id="email-button" type="button" data-toggle="collapse" data-target="#collapseEmail" aria-expanded="false" aria-controls="collapseEmail">
                     Send Email
                  </button>
                  <div class="collapse" id="collapseEmail">
@@ -149,11 +149,11 @@
                         <form action="/email" method="POST">
                            <div class="form-group">
                                <label for="email-from">From:</label>
-                               <input type="text" class="form-control" name="from" id="email-from">
+                               <input type="text" class="form-control" name="from" id="email-from" value="pragwebdev@gmail.com" readonly="readonly">
                            </div>
                            <div class="form-group">
                                <label for="email-to">To:</label>
-                               <input type="text" class="form-control" name="to" id="email-to" value="<%=complaint.author.id.email%>" disabled>
+                               <input type="text" class="form-control" name="to" id="email-to" value="<%=complaint.author.id.email%>" readonly="readonly">
                            </div>
                            <div class="form-group">
                                <label for="email-subject">Subject:</label>
@@ -163,7 +163,7 @@
                                <label for="email-text">Text:</label>
                                <textarea name="text" id="email-text" cols="30" rows="10" class="form-control"></textarea>
                            </div>
-                           <input type="submit" name="" id="">
+                           <input type="submit" name="" id="" class="btn btn-sm btn-success">
                         </form>  
                         </div>
                 </div>
@@ -199,14 +199,16 @@
 
 <script>
     function emailBox($i){
-        var statusSelect=document.getElementById("statusSelect");
-        var emailBox=document.getElementById("collapseEmail");
-        var selectedValue = statusSelect.options[statusSelect.selectedIndex].value;
-        if(selectedValue=='Pending'){
-        emailBox.style.display="block";
-        }else{
-        emailBox.style.display="none";
-        }
+       var emailButton=document.getElementById("email-button");
+       var emailBox=document.getElementById("collapseEmail");
+       if($i==='Pending'){
+           
+            emailButton.classList.add("collapsed");
+           emailButton.setAttribute("aria-expanded","true");
+           emailBox.classList.add("show")
+           
+       }
     }
+    
 </script>
 <%-include("../partials/footer")%>

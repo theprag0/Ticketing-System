@@ -1,25 +1,37 @@
 @import url("https://use.fontawesome.com/releases/v5.11.2/css/all.css");
+@import './home.css';
 @import './login.css';
 @import './register.css';
 @import './show.css';
 @import './support-panel.css';
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 html{
     height:100%;
 }
 body{
     height: 100%;
     font-size: 16px;
+    padding-top: 70px !important;
     margin: 0;
     padding: 0;
     line-height: 1.5;
-    background:#f2f2f2 ;
+    background:#fff ;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    scroll-behavior: smooth;
 }
 ul{
     padding: 0;
     margin: 0;
     list-style: none;
+}
+a{
+    text-decoration: none;
+    margin: 0;
 }
 ul>li{
     padding: 5px;
@@ -42,6 +54,111 @@ padding: 0;
     display: none;
 }
 
+/* NAVBAR */
+.navbar-brand{
+    font-family: 'Comfortaa', cursive;
+    font-size: 1.6em;
+    margin-left: 20px;
+}
+.navbar-dark .navbar-nav .nav-link{
+    font-family: 'Lato',sans-serif;
+    color: #fff;
+    font-weight: 700;
+}
+#menu-bar,
+#menu{
+    display: none;
+}
+@media(max-width:768px){
+    #large-nav{
+        display: none;
+    }
+    #menu-bar, 
+    #menu{
+        display: block;
+    }
+    .nav li a{
+        color: #fff;
+        text-decoration: none;
+    }
+    .nav li a:hover{
+        font-weight: bold;
+    }
+    .nav li{
+        list-style: none;
+        padding: 16px 0;
+    }
+    .nav{
+        padding: 0;
+        margin: 0 20px;
+        transition: 0.3s ease;
+        display: none;
+    }
+    #menu{
+        width: 35px;
+        height: 30px;
+        margin: 30px 0 20px 20px;
+        cursor: pointer;
+    }
+    .bar{
+        height: 5px;
+        width: 100%;
+        background-color: #fff;
+        display: block;
+        border-radius: 5px;
+        transition: 0.3s ease;
+    }
+    #bar1{
+        transform: translateY(-4px);
+    }
+    #bar3{
+        transform: translateY(4px);
+    }
+    .menu-bg, #menu-bar{
+        top: 0;
+        left: 0;
+        position: absolute;
+    }
+    .menu-bg{
+        z-index: 1;
+        width: 0;
+        height: 0;
+        margin: 30px 0 20px 20px;
+        background: radial-gradient(circle,#ADC7C6,#8CADB5);
+        border-radius: 50%;
+        transition: 0.3s ease;
+    }
+    #menu-bar{
+        z-index: 2;	
+    }
+    .change-bg{
+        width: 550px;
+        height: 540px;
+        transform: translate(-60%,-30%);
+    }
+    .change .bar{
+        background-color: white;
+    }
+    .change #bar1{
+        transform: translateY(4px) rotateZ(-45deg);
+    }
+    .change #bar3{
+        transform: translateY(-6px) rotate(45deg);
+    }
+    .change #bar2{
+        opacity: 0;
+    }
+    .change{
+        display: block;
+    }
+}
+.navbar.scrolled {
+    background: rgba(209, 224, 218,0.9);
+    transition: background .7s;
+}
+#mainnavbar a.scrolled-a{
+    color: black;
+}
 /* LOGIN AND REGISTER BG */
 .bg{
     background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -49,4 +166,14 @@ padding: 0;
 .required{
     color: red;
     font-size: large;
+}
+
+/* MEDIA QUERIES */
+@media(min-width:1400px){
+    .navbar-brand{
+        font-size: 2.3em;
+    }
+    .nav-item{
+        font-size: 20px;
+    }
 }

@@ -1,34 +1,40 @@
-const mongoose = require('mongoose');
 const Complaint = require('./models/complaints');
 const emailServer = require('./utils/sendEmail');
-// this.onmessage = function (e) {
-//     var status = e.data.status;
-//     var maxTime = e.data.maxTime;
-//     var firstAlert = 10 * 1000;
-//     function doSetTimeout(i) {
-//         setTimeout(function () {
-//             console.log('ticket is not resolved yet');
-//         }, i);
-//     }
-//     var finish = console.log('ticket closed');
-//     if (status === 'Open') {
-//         postMessage(doSetTimeout(i));
-//     } else if (status === 'Closed') {
-//         postMessage(finish);
-//     }
-// };
 
-var execute = false;
-setInterval(function () {
-    execute = true;
-}, 60 * 60 * 1000);
-while ((execute = true)) {
-    Complaint.findById(
-        { status: { $all: ['Open', 'Pending', 'Re-Open'] } },
-        function (err, foundComplaint) {
-            if (foundComplaint.assignedTo) {
-                emailServer.sendNotificationEmail(foundComplaint);
-            }
-        },
-    );
-}
+const hour = 60 * 60 * 1000;
+let firstAlert=Date
+const updateComplaints = async () => {
+    const complaints = await Complaint.find({
+        status: { $in: ['Open', 'Pending', 'Re-Open'] },
+        // reviewStartedAt: { $gte: [new Date(Date.now()) - hour,hour] }
+    }).populate("assignedTo");
+   console.log(complaints);
+    complaints.map((complaint) => {
+        if (complaint.assignedTo) {         
+            emailServer.sendNotificationEmail(complaint);
+        }
+    });
+    console.log("setInterval was triggered");
+};
+
+const timer = setInterval(updateComplaints, hour);
+
+// if(P-01){
+//     //set 4 points with one hour in between
+//     var checkPoints=[1*60*60*1000,2*60*60*1000,3*60*60*1000,4*60*60*1000];
+    
+//     //check if closed at each point
+//     i=60*60*1000;
+//     while(i<4*60*60*1000){
+//         setTimeout(function(){
+//             checkPoints.forEach(function(point){
+//                 if(complaint.status='Open'){
+//                    console.log("hello");        
+//                 }
+//         },i)
+//         i=i+1*60*60*1000;
+//     })
+// }
+//     //if closed , stop
+//     //else sendemail
+// }

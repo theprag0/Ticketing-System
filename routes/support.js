@@ -6,7 +6,6 @@ const emailServer = require('../utils/sendEmail');
 const middlewareObj = require('../middleware/index');
 const utils = require('../utils/utils');
 const moment = require('moment');
-const Worker = require('worker_threads');
 
 // SUPPORT ROUTES
 // Show all complaints
@@ -98,14 +97,5 @@ router.put('/:id', middlewareObj.isAdmin, function (req, res) {
             }
         });
 });
-router.post('/email', function (req, res) {
-    var newEmail = {
-        from: req.body.from,
-        to: req.body.to,
-        subject: req.body.subject,
-        text: req.body.text,
-    };
-    emailServer.sendNotificationEmail(newEmail);
-    res.redirect('back');
-});
+
 module.exports = router;

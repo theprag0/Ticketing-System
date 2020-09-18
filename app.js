@@ -16,12 +16,14 @@ const express = require('express'),
     LocalStrategy = require('passport-local'),
     User = require('./models/user'),
     utils = require('./utils/utils'),
-    AutoIncrement = require('mongoose-sequence')(mongoose);
+    AutoIncrement = require('mongoose-sequence')(mongoose),
+    emailServer = require("./utils/sendEmail");
 
 const userRoutes = require('./routes/user'),
     supportRoutes = require('./routes/support'),
     authRoutes = require('./routes/auth');
 
+require("./worker.js");
 app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -48,9 +50,6 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// passport.use(new LocalStrategy(Support.authenticate()));
-// passport.serializeUser(Support.serializeUser());
-// passport.deserializeUser(Support.deserializeUser());
 require('moment/min/locales.min');
 moment.locale('en');
 app.locals.moment = moment;
@@ -66,6 +65,18 @@ app.use(function (req, res, next) {
 app.use('/user', userRoutes);
 app.use('/support', supportRoutes);
 app.use('/', authRoutes);
+
+app.post('/email', function (req, res) {
+    var newEmail = {
+        from: req.body.from,
+        to: req.body.to,
+        subject: req.body.subject,
+        text: req.body.text,
+    };
+    emailServer.sendSupportEmail(newEmail);
+    req.flash("success","Email sent successfully!");
+    res.redirect('back');
+});
 
 app.listen(process.env.PORT || 3000, process.env.IP, function () {
     console.log('The Server Has Started.');
