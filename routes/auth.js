@@ -7,7 +7,7 @@ const Complaint = require('../models/complaints');
 
 // HOME ROUTE
 router.get('/', function (req, res) {
-    res.render('home',{page:'home'});
+    res.render('home', { page: 'home' });
 });
 
 // REGISTER ROUTES

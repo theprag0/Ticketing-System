@@ -17,13 +17,13 @@ const express = require('express'),
     User = require('./models/user'),
     utils = require('./utils/utils'),
     AutoIncrement = require('mongoose-sequence')(mongoose),
-    emailServer = require("./utils/sendEmail");
+    emailServer = require('./utils/sendEmail');
 
 const userRoutes = require('./routes/user'),
     supportRoutes = require('./routes/support'),
     authRoutes = require('./routes/auth');
 
-require("./worker.js");
+require('./worker.js');
 app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -74,7 +74,7 @@ app.post('/email', function (req, res) {
         text: req.body.text,
     };
     emailServer.sendSupportEmail(newEmail);
-    req.flash("success","Email sent successfully!");
+    req.flash('success', 'Email sent successfully!');
     res.redirect('back');
 });
 
