@@ -63,10 +63,7 @@ router.post('/login', middlewareObj.notLoggedIn, function (req, res) {
 //Logout logic
 router.get('/logout', middlewareObj.isLoggedIn, (req, res, next) => {
     req.logout();
-    req.flash(
-        'success',
-        'Logged you out, Thank you for using Ticket Cloud!',
-    );
+    req.flash('success', 'Logged you out, Thank you for using Ticket Cloud!');
     res.redirect('/');
 });
 

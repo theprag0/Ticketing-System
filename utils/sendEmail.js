@@ -63,9 +63,7 @@ module.exports.sendNotificationEmail = async (complaint) => {
             complaint.assignedTo.firstName +
             ',\n' +
             'Notification Generated: ' +
-            moment(Date.now()).format(
-                'dddd, MMMM Do YYYY, h:mm:ss a',
-            )  +
+            moment(Date.now()).format('dddd, MMMM Do YYYY, h:mm:ss a') +
             '\n This is a remainder for ticket with ref no. : ' +
             complaint.type +
             '-' +
@@ -84,7 +82,7 @@ module.exports.sendNotificationEmail = async (complaint) => {
     });
 };
 
-module.exports.sendClosedEmail= async (complaint) => {
+module.exports.sendClosedEmail = async (complaint) => {
     let transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
@@ -100,16 +98,19 @@ module.exports.sendClosedEmail= async (complaint) => {
             'Hi ' +
             complaint.author.id.firstName +
             ',\n' +
-            "Thank You for using Ticket Cloud.\n"+
-            "This is to notify you that your ticket with ref no. "+complaint.type+"-"+complaint.ticketId+
-            " was closed by our support executive on "+ moment(complaint.reviewClosedAt).format(
+            'Thank You for using Ticket Cloud.\n' +
+            'This is to notify you that your ticket with ref no. ' +
+            complaint.type +
+            '-' +
+            complaint.ticketId +
+            ' was closed by our support executive on ' +
+            moment(complaint.reviewClosedAt).format(
                 'dddd, MMMM Do YYYY, h:mm:ss a',
-            )+
-            "\n Please contact our support team for further queries"+
+            ) +
+            '\n Please contact our support team for further queries' +
             '.\n\n' +
             'Regards,\n' +
             'Admin\n\n\n' +
             'Note: This is a system generated Email. Please contact the admin in case of errors. Please ignore the email if the above ticket is closed.',
     });
 };
-
