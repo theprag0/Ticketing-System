@@ -36,7 +36,7 @@ router.post('/register', middlewareObj.notLoggedIn, function (req, res) {
             passport.authenticate('local')(req, res, function () {
                 req.flash(
                     'success',
-                    'Thank You for registering to the Ticketing System ' +
+                    'Thank You for registering with Ticket Cloud ' +
                         user.username +
                         '!',
                 );
@@ -65,7 +65,7 @@ router.get('/logout', middlewareObj.isLoggedIn, (req, res, next) => {
     req.logout();
     req.flash(
         'success',
-        'Logged you out, Thank you for visiting ticketing system!',
+        'Logged you out, Thank you for using Ticket Cloud!',
     );
     res.redirect('/');
 });

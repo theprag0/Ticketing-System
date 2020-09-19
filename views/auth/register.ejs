@@ -1,5 +1,5 @@
-<%- include("../partials/header")%>
-
+<% layout("layout")-%>
+<div class="container">
 <div class="row">
 <div class="col-md-10 offset-md-1">
 <div class="row">
@@ -82,7 +82,7 @@
 </div>
 </div>
 </div>
-
+</div>
 
 <script>
   var userRoles=document.getElementById("user-roles");
@@ -90,7 +90,9 @@
   var adminButton=document.getElementById("as-admin");
   var signUpForm=document.getElementById("sign-up-form");
   var adminCode=document.getElementById("admin-code");
-
+  var navBar=document.querySelector(".navbar");
+       
+  navBar.classList.remove("bg-dark");
   userButton.onclick=function signUpToggle(){
         signUpForm.classList.remove("hide");
         userRoles.classList.add("hide");
@@ -103,4 +105,3 @@
         adminCode.classList.remove("hide");
   }
 </script>
-<%-include("../partials/footer")%>

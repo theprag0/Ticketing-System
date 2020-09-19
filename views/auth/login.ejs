@@ -1,5 +1,5 @@
-<%- include("../partials/header")%>
-
+<% layout("layout")-%>
+<div class="container">
 <div class="modal-dialog">
     <div class="col-sm-9 main-section">
        <div class="modal-content">
@@ -28,5 +28,8 @@
        </div>
     </div>
 </div>
-
-<%- include("../partials/footer")%>
+</div>
+<script>
+     var navBar=document.querySelector(".navbar");
+     navBar.classList.remove("bg-dark");
+</script>

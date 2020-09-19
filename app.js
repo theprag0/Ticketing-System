@@ -9,6 +9,7 @@ const express = require('express'),
     flash = require('connect-flash'),
     mongoose = require('mongoose'),
     worker = require('worker_threads'),
+    engine = require('ejs-mate'),
     moment = require('moment'),
     session = require('express-session'),
     mongoStore = require('connect-mongo')(session),
@@ -28,6 +29,7 @@ app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.engine('ejs', engine);
 app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));

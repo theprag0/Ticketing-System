@@ -86,6 +86,7 @@ router.put('/:id', middlewareObj.isAdmin, function (req, res) {
                         foundComplaint.reviewReopenAt,
                     );
                     foundComplaint.resolveTime = timeDifference;
+                    emailServer.sendClosedEmail(foundComplaint);
                     foundComplaint.save();
                 }
 

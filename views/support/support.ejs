@@ -1,7 +1,13 @@
-<%- include("../partials/header.ejs") %>
-
+<% layout("layout")-%>
+<div class="container">
 <div class="container">
 <div class="row">
+    <% if(complaint.length==0){ %>
+        <div style="margin:200px auto;">
+            <img src="/images/feather.svg" alt="" class="about-icons" style="margin-left: 60px;">
+            <h1>No Tickets Yet.</h1>
+        </div>
+     <% } %>
     <% complaint.forEach(function(complaint){ %>
     <div class="col-sm-12 col-xs-12 col-lg-4">
         <div class="card border-primary mb-3">
@@ -15,7 +21,7 @@
                   <% }else if(complaint.status=="Closed"){ %>
                   <div class="status-circle float-right" id="Closed"></div>
                   <% } %>
-                <h2>Ticket: </h2>
+                <h2>Ticket:</h2>
                 <hr>
                 <h3 class="card-title"><%=complaint.name%></h3>
                 <em
@@ -23,6 +29,8 @@
                 >
                 <em><p class="card-text" id="description"><%-complaint.desc.substring(0,100)%>....</p></em>
                 <hr />
+                <h6 class="card-title float-right">Priority:</h6>
+               <span><p class="float-right"><%=complaint.priority%></p></span>
                 <h6 class="card-title">Status:</h6>
                 <span>
                     <% if(complaint.status=="Not Assigned Yet"){ %>
@@ -42,7 +50,7 @@
     <% }) %>
 </div>
 </div>
-
+</div>
 <!--ROW ENDS HERE-->
 
-<%- include("../partials/footer.ejs") %>
+

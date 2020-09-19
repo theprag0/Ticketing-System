@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticketing System</title>
+    <link rel="icon" href="/images/cloud-solid.svg">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,400;0,600;0,700;1,600;1,700&family=Montserrat:ital,wght@0,400;1,400;1,500&family=Overpass:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Lato&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;1,100&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
+</head>
+<body class="<%= typeof page !== 'undefined' &&(page === 'login' || page === 'register') ? 'bg' : '' %>  ">
+        <%-include("./partials/header")%>
+        <main>
+                <%- body -%>
+        </main>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script>
+        
+            function onClickMenu(){
+            document.getElementById("menu").classList.toggle("change");
+            document.getElementById("nav").classList.toggle("change");
+            
+            document.getElementById("menu-bg").classList.toggle("change-bg");
+        }
+        
+        // NAVBAR SCROLL EFFECT
+                $(function () {
+                    $(document).scroll(function () {
+                        var $nav = $("#mainnavbar");
+                        $nav.toggleClass("scrolled", $(this).scrollTop() > $nav.height());
+                    });
+                    $(document).scroll(function () {
+                        var $nav = $("#mainnavbar a");
+                        $nav.toggleClass("scrolled-a", $(this).scrollTop() > $nav.height());
+                    });
+                });
+           
+        // SMOOTH-SCROLL EFFECT
+        const links = document.querySelectorAll(".arrow-down");
+         
+        for (const link of links) {
+          link.addEventListener("click", clickHandler);
+        }
+         
+        function clickHandler(e) {
+          e.preventDefault();
+          const href = this.getAttribute("href");
+          const offsetTop = document.querySelector(href).offsetTop;
+         
+          scroll({
+            top: offsetTop,
+            behavior: "smooth"
+          });
+        }
+        </script>
+        </body>
+        </html>

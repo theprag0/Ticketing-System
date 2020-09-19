@@ -4,6 +4,10 @@ h1{
     font-size: 30px;
     font-family: 'Overpass', sans-serif;
 }
+.new-ticket{
+    font-family: 'Roboto',sans-serif;
+    font-size: 26px;
+}
 .card-title
 {
     font-family: 'Josefin Sans', sans-serif;

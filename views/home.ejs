@@ -1,4 +1,4 @@
-<%-include("./partials/header")%>
+<% layout("layout")-%>
 
 <header id="showcase">
     <div class="gradient-overlay"></div>
@@ -93,11 +93,7 @@
       </div>
   </footer>
    <script>
-       var commonContainer=document.getElementById("common-container");
        var navBar=document.querySelector(".navbar");
-       var navLink=document.querySelector(".nav-item");
-    //   navBar.classList.remove("bg-dark");
-     commonContainer.classList.remove("container");
-     navLink.setAttribute("style","color:red;");
+       navBar.classList.remove("bg-dark");
    </script>
-<%-include("./partials/footer")%>
+
