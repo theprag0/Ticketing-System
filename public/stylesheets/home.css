@@ -49,7 +49,7 @@
 }
 
 #intro-btn{
-  background:#04f;
+  /* background:#04f; */
   border: none;
   transition-duration: .5s;
 }
@@ -237,5 +237,16 @@ footer{
     .about-para{
         width: 70%;
         margin: 0 auto;
+    }
+}
+@media screen and (max-width:425px){
+    #intro-para{
+        font-size: 20px;
+    }
+    #intro-head{
+        font-size: 28px;
+    }
+    #intro-header{
+        padding-left: 15px;
     }
 }
