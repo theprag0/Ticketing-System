@@ -27,7 +27,5 @@ const archiveComplaints = async () => {
         complaint.archived = true;
         complaint.save();
     });
-    console.log(complaints);
-    console.log('archive timer triggered');
 };
 const archiveTimer = setInterval(archiveComplaints, mins);
