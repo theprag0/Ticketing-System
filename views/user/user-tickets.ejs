@@ -1,10 +1,11 @@
 <% layout("layout")-%>
-<div class="container">
+<div class="container pt-4">
 <section>
     <div class="container">
+        <a href="/user/<%=currentUser._id%>/history" class="btn btn-info btn-sm float-right">View History</a>
         <h2>My Tickets</h2>
         <hr>
-        <p class="new-ticket">Add New Ticket: <a href="/user" class="btn btn-success btn-lg">Add New Ticket</a></p>
+        <p class="new-ticket mb-4">Add New Ticket: <a href="/user" class="btn btn-success btn-lg">Add New Ticket</a></p>
         <% if(complaints.length==0){ %>
             <div class="row">
                 <div class="col-md-12" style="margin-left:40%; margin-top: 90px;">
@@ -47,7 +48,7 @@
                             <p><%=complaint.status%></p>
                             <% } %>
                         </span>
-                        <a href="/support/<%=complaint._id%>" class="btn btn-primary btn-sm">More Info</a>
+                        <a href="/user/<%=complaint._id%>/show" class="btn btn-primary btn-sm">More Info</a>
                     </div>
                 </div>
             </div>

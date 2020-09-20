@@ -1,0 +1,82 @@
+<% layout("layout") -%>
+
+<div class="container pt-4">
+<section>
+<div class="container">
+<h1 class="mb-3">Ticket Info</h1>
+<hr />
+<div class="row" style="margin-bottom: 100px;">
+    <div class="col-sm-12 col-md-4">
+        <div class="col-12" id="user-info">
+            <h2 class="user-details">User Details:</h2>
+            <img
+                class="img-fluid"
+                id="user-image"
+                src="/images/pexels-image.jpg"
+                alt="user-profile-picture"
+                id="profile-picture"
+            />
+            <div class="details">
+                <ul>
+                    <li><strong>Username: </strong><a href="">@<%=complaint.author.id.username%></a></li>
+                    <li><strong>Name: </strong><%=complaint.author.id.firstName%> <%=complaint.author.id.lastName%></li>
+                    <li><strong>Email: </strong></li>
+                    <li><a href="<%=complaint.author.id.email%>"><%=complaint.author.id.email%></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-8">
+        <div class="col-12" id="user-info">
+            <h4 class="float-right text-center"><%=complaint.priority%></h4>
+            <h2 class="user-details" style="text-align: left;">Ticket Information:</h2>
+            <hr class="style-one" />
+            <div class="details">
+                <div style="float: left;">
+                    <ul>
+                        <li><strong class="ticket-details">Title/Subject:</strong></li>
+                        <li><strong class="ticket-details">Type:</strong></li>
+                        <li><strong class="ticket-details">Created At:</strong></li>
+                        <li><strong class="ticket-details">Ticket ID/Ref. No:</strong></li>
+                        <li><strong class="ticket-details">Status:</strong></li>
+                        <li><strong class="ticket-details">Assigned To:</strong></li>
+                    </ul>
+                </div>
+                <div style="float: right;">
+                    <ul>
+                        
+                        <li><%=complaint.name%></li>
+                        <li><%=complaint.type%></li>
+                        <li><%=moment(complaint.createdAt).format("dddd, MMMM Do YYYY, h:mm:ss a")%></li>
+                        <li>
+                            <% if(complaint.type==='Service Request'){ %>
+                                SR-<%=complaint.ticketId%>
+                            <% }else{ %>
+                                IR-<%=complaint.ticketId%>
+                            <% } %>
+                        </li>
+                        <!-- TICKET STATUS LIST ITEM STARTS HERE -->
+                        <li>
+                        <% if(!complaint.status){ %>
+                             Not Assigned Yet.
+                        <% }else if(complaint.status){ %>
+                            <%=complaint.status%>
+                        <% } %>
+                        </li>
+                        <!-- ASSIGNED TO LIST ITEM STARTS HERE -->
+                        <li>
+                        <% if(!complaint.assignedTo){ %>
+                              Not Assigned Yet.
+                        <% }else if(complaint.assignedTo){ %>
+                           <%=complaint.assignedTo.firstName%> <%=complaint.assignedTo.lastName%>
+                        <% } %>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</section>
+</div>

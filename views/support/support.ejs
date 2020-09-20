@@ -1,6 +1,9 @@
 <% layout("layout")-%>
 <div class="container">
-<div class="container">
+<div class="container pt-4">
+    <a href="/support-history" class="btn btn-info btn-sm float-right">View History</a>
+    <h3 style="font-family: 'Roboto',sans-serif;">All Tickets:</h3>
+    <hr>
 <div class="row">
     <% if(complaint.length==0){ %>
         <div style="margin:200px auto;">
@@ -29,8 +32,7 @@
                 >
                 <em><p class="card-text" id="description"><%-complaint.desc.substring(0,100)%>....</p></em>
                 <hr />
-                <h6 class="card-title float-right">Priority:</h6>
-               <span><p class="float-right"><%=complaint.priority%></p></span>
+                <p><strong>Priority: </strong><br><%=complaint.priority%></p>
                 <h6 class="card-title">Status:</h6>
                 <span>
                     <% if(complaint.status=="Not Assigned Yet"){ %>

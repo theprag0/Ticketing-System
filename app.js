@@ -24,6 +24,9 @@ const userRoutes = require('./routes/user'),
     supportRoutes = require('./routes/support'),
     authRoutes = require('./routes/auth');
 
+var Complaint = require('./models/complaints');
+var middlewareObj = require('./middleware/index');
+
 require('./worker.js');
 app.use(compression());
 app.use(express.json());
@@ -78,6 +81,22 @@ app.post('/email', function (req, res) {
     emailServer.sendSupportEmail(newEmail);
     req.flash('success', 'Email sent successfully!');
     res.redirect('back');
+});
+
+// Access history page containing all created tickets
+app.get('/support-history', middlewareObj.isAdmin, function (req, res) {
+    Complaint.find({})
+        .sort('-createdAt')
+        .exec(function (err, complaints) {
+            if (err) {
+                req.flash(
+                    'error',
+                    'Something went wrong, Please try again later.',
+                );
+                res.redirect('back');
+            }
+            res.render('support/support-history', { complaints: complaints });
+        });
 });
 
 app.listen(process.env.PORT || 3000, process.env.IP, function () {

@@ -3,6 +3,7 @@ var router = express.Router({ mergeParams: true });
 var Complaint = require('../models/complaints');
 const middlewareObj = require('../middleware/index');
 const emailServer = require('../utils/sendEmail');
+const { findOneAndUpdate } = require('../models/complaints');
 
 // USER ROUTES
 // Render the complaint form
@@ -30,14 +31,14 @@ router.post('/', middlewareObj.isLoggedIn, async function (req, res) {
         // notSeen(newComplaint);
 
         req.flash('success', 'The Ticket was generated successfully!');
-        return res.redirect('/');
+        return res.redirect('back');
     } catch (err) {
         req.flash('error', 'Something went wrong. Please Try Again.');
         return res.redirect('back');
     }
 });
 
-//Get history page with all posted complaints
+//Access Ticket Panel
 router.get('/:id', middlewareObj.isLoggedIn, async (req, res, next) => {
     try {
         const complaints = await Complaint.find({
@@ -48,7 +49,7 @@ router.get('/:id', middlewareObj.isLoggedIn, async (req, res, next) => {
             req.flash('error', 'Something went wrong. Please try again');
             return res.redirect('back');
         } else {
-            return res.render('user/history', {
+            return res.render('user/user-tickets', {
                 complaints: complaints,
             });
         }
@@ -56,6 +57,39 @@ router.get('/:id', middlewareObj.isLoggedIn, async (req, res, next) => {
         req.flash('error', 'Something went wrong. Please try again');
         return res.redirect('back');
     }
+});
+
+//Show more info about ticket
+router.get('/:id/show', function (req, res) {
+    Complaint.findById(req.params.id)
+        .populate('author.id assignedTo')
+        .exec(function (err, foundComplaint) {
+            if (err) {
+                req.flash(
+                    'error',
+                    'Something went wrong, Please try again later.',
+                );
+                res.redirect('back');
+            } else {
+                res.render('user/show', { complaint: foundComplaint });
+            }
+        });
+});
+
+// Access history page containing all created tickets
+router.get('/:id/history', middlewareObj.isLoggedIn, function (req, res) {
+    Complaint.find({ author: { id: req.user._id } })
+        .sort('-createdAt')
+        .exec(function (err, complaints) {
+            if (err) {
+                req.flash(
+                    'error',
+                    'Something went wrong, Please try again later.',
+                );
+                res.redirect('back');
+            }
+            res.render('user/user-history', { complaints: complaints });
+        });
 });
 
 module.exports = router;

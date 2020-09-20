@@ -159,6 +159,9 @@ padding: 0;
 #mainnavbar a.scrolled-a{
     color: black;
 }
+.table-content{
+    font-family: 'Roboto',sans-serif;
+}
 /* LOGIN AND REGISTER BG */
 .bg{
     background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
