@@ -28,7 +28,6 @@ router.post('/', middlewareObj.isLoggedIn, async function (req, res) {
             req.flash('error', 'Something went wrong. Please Try Again.');
             return res.redirect('back');
         }
-        // notSeen(newComplaint);
 
         req.flash('success', 'The Ticket was generated successfully!');
         return res.redirect('/user/req.user.id');
