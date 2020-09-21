@@ -10,8 +10,8 @@ h1{
 }
 .card-title
 {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
     font-weight: bold;
 }
 #description,
@@ -27,8 +27,8 @@ h1{
     background-color: yellow;
 }
 .card-body h2{
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 27px;
     font-weight: bold;
     padding-top: 10px;
 }
