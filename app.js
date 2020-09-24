@@ -87,6 +87,7 @@ app.post('/email', function (req, res) {
 app.get('/support-history', middlewareObj.isAdmin, function (req, res) {
     Complaint.find({})
         .sort('-createdAt')
+        .populate('author.id')
         .exec(function (err, complaints) {
             if (err) {
                 req.flash(

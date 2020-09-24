@@ -20,7 +20,7 @@ const timer = setInterval(updateComplaints, hour);
 const mins = 15 * 60 * 1000;
 const archiveComplaints = async () => {
     const complaints = await Complaint.find({
-        archivingTime: { $gte: Date.now() },
+        archivingTime: { $lte: Date.now() },
         archived: false,
     });
     complaints.map((complaint) => {

@@ -43,7 +43,7 @@ router.get('/:id', middlewareObj.isLoggedIn, async (req, res, next) => {
         const complaints = await Complaint.find({
             archived: false,
             author: { id: req.user._id },
-        });
+        }).sort('-createdAt');
         if (!complaints) {
             req.flash('error', 'Something went wrong. Please try again');
             return res.redirect('back');

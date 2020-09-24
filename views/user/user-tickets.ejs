@@ -34,7 +34,7 @@
                         <em
                             ><p id="createdAt"><strong>Created On:</strong> <%=moment(complaint.createdAt).format("dddd, MMMM Do YYYY, h:mm:ss a");%></p></em
                         >
-                        <em><p class="card-text" id="description"><%-complaint.desc.substring(0,100)%>....</p></em>
+                        <em><p class="card-text" id="description"><%-complaint.desc.substring(0,30)%>....</p></em>
                         <hr />
                         <h6 class="card-title">Status:</h6>
                         <span>

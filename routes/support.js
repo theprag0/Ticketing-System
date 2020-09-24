@@ -6,17 +6,28 @@ const emailServer = require('../utils/sendEmail');
 const middlewareObj = require('../middleware/index');
 const utils = require('../utils/utils');
 const moment = require('moment');
+const { create } = require('../models/user');
 
 // SUPPORT ROUTES
 // Show all complaints
-router.get('/', middlewareObj.isAdmin, function (req, res) {
-    Complaint.find({ archived: false }, function (err, foundComplaint) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.render('support/support', { complaint: foundComplaint });
-        }
-    });
+router.get('/', middlewareObj.isAdmin, async (req, res, next) => {
+    try {
+        const complaints = await Complaint.find({ archived: false }).sort(
+            '-createdAt',
+        );
+        const recentComplaints = await Complaint.find({
+            createdAt: { $gt: new Date(Date.now() - 24 * 60 * 60 * 1000) },
+        }).sort('-createdAt');
+
+        return res.render('support/support', {
+            complaints: complaints,
+            recentComplaints: recentComplaints,
+        });
+    } catch (err) {
+        console.log(err);
+        req.flash('error', err.message);
+        return res.redirect('back');
+    }
 });
 
 //Show more info about a ticket

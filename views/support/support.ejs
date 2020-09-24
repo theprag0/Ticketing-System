@@ -1,17 +1,78 @@
 <% layout("layout")-%>
 <div class="container">
 <div class="container pt-4">
+    <div class="float-right ml-2">
+            <select name="filter-search" id="filter-search" onclick="filter(value)" class="btn btn-info btn-sm">
+                <option>Filter Tickets</option>
+                <option value="All">All</option>
+                <option value="Recent">Last 24 hours</option>
+            </select>
+      </div>
     <a href="/support-history" class="btn btn-info btn-sm float-right">View History</a>
     <h3 style="font-family: 'Roboto',sans-serif;">All Tickets:</h3>
     <hr>
-<div class="row">
-    <% if(complaint.length==0){ %>
-        <div style="margin:200px auto;">
-            <img src="/images/feather.svg" alt="" class="about-icons" style="margin-left: 60px;">
-            <h1>No Tickets Yet.</h1>
-        </div>
-     <% } %>
-    <% complaint.forEach(function(complaint){ %>
+    <div class="row" id="recent-tickets">
+        <% recentComplaints.forEach(function(complaint){ %>
+            <% if(complaint.length==0){ %>
+                <div style="margin:200px auto;">
+                    <img src="/images/feather.svg" alt="" class="about-icons" style="margin-left: 60px;">
+                    <h1>No Tickets Yet.</h1>
+                </div>
+             <% } %>
+            <div class="col-sm-12 col-xs-12 col-lg-4">
+                <div class="card border-primary mb-3">
+                    <div class="card-body">
+                        <% if(complaint.status=="Not Assigned Yet"){ %>
+                          <div class="status-circle float-right" id="Pending"></div>
+                          <% }else if(complaint.status=="Pending"){ %>
+                          <div class="status-circle float-right" id="Pending"></div>
+                          <% }else if(complaint.status=="Open"){ %>
+                          <div class="status-circle float-right" id="Open"></div>
+                          <% }else if(complaint.status=="Closed"){ %>
+                          <div class="status-circle float-right" id="Closed"></div>
+                          <% } %>
+                        <h2>Ticket:</h2>
+                        <strong><p>
+                                <% if(complaint.type==='Service Request'){ %>
+                                    SR-<%=complaint.ticketId%>
+                                <% }else{ %>
+                                    IR-<%=complaint.ticketId%>
+                                <% } %>
+                        </p></strong>
+                        <hr>
+                        <h3 class="card-title"><%=complaint.name%></h3>
+                        <em
+                            ><p id="createdAt"><strong>Created On:</strong> <%=moment(complaint.createdAt).format("dddd, MMMM Do YYYY, h:mm:ss a");%></p></em
+                        >
+                        <em><p class="card-text" id="description"><%-complaint.desc.substring(0,30)%>....</p></em>
+                        <hr />
+                        <p><strong>Priority: </strong><br><%=complaint.priority%></p>
+                        <h6 class="card-title">Status:</h6>
+                        <span>
+                            <% if(complaint.status=="Not Assigned Yet"){ %>
+                            <p>Not Assigned Yet.</p>
+                            <% }else if(complaint.status && complaint.status=="Pending"){ %>
+                            <p><%=complaint.status%></p>
+                            <% }else if(complaint.status && complaint.status=="Open"){ %>
+                            <p><%=complaint.status%></p>
+                            <% }else if(complaint.status && complaint.status=="Closed"){ %>
+                            <p><%=complaint.status%></p>
+                            <% } %>
+                        </span>
+                        <a href="/support/<%=complaint._id%>" class="btn btn-primary btn-sm">More Info</a>
+                    </div>
+                </div>
+            </div>
+        <% }) %>  
+    </div>
+<div class="row" id="all-tickets">
+    <% complaints.forEach(function(complaint){ %>
+        <% if(complaint.length==0){ %>
+            <div style="margin:200px auto;">
+                <img src="/images/feather.svg" alt="" class="about-icons" style="margin-left: 60px;">
+                <h1>No Tickets Yet.</h1>
+            </div>
+         <% } %>
     <div class="col-sm-12 col-xs-12 col-lg-4">
         <div class="card border-primary mb-3">
             <div class="card-body">
@@ -37,7 +98,7 @@
                 <em
                     ><p id="createdAt"><strong>Created On:</strong> <%=moment(complaint.createdAt).format("dddd, MMMM Do YYYY, h:mm:ss a");%></p></em
                 >
-                <em><p class="card-text" id="description"><%-complaint.desc.substring(0,100)%>....</p></em>
+                <em><p class="card-text" id="description"><%-complaint.desc.substring(0,30)%>....</p></em>
                 <hr />
                 <p><strong>Priority: </strong><br><%=complaint.priority%></p>
                 <h6 class="card-title">Status:</h6>
