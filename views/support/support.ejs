@@ -12,13 +12,13 @@
     <h3 style="font-family: 'Roboto',sans-serif;">All Tickets:</h3>
     <hr>
     <div class="row" id="recent-tickets">
+        <% if(recentComplaints.length==0){ %>
+            <div style="margin:150px auto;">
+                <img src="/images/feather.svg" alt="" class="about-icons" style="margin-left: 60px;">
+                <h1>No Tickets Yet.</h1>
+            </div>
+         <% } %>
         <% recentComplaints.forEach(function(complaint){ %>
-            <% if(complaint.length==0){ %>
-                <div style="margin:200px auto;">
-                    <img src="/images/feather.svg" alt="" class="about-icons" style="margin-left: 60px;">
-                    <h1>No Tickets Yet.</h1>
-                </div>
-             <% } %>
             <div class="col-sm-12 col-xs-12 col-lg-4">
                 <div class="card border-primary mb-3">
                     <div class="card-body">
@@ -66,13 +66,13 @@
         <% }) %>  
     </div>
 <div class="row" id="all-tickets">
+    <% if(complaints.length==0){ %>
+        <div style="margin:150px auto;">
+            <img src="/images/feather.svg" alt="" class="about-icons" style="margin-left: 60px;">
+            <h1>No Tickets Yet.</h1>
+        </div>
+     <% } %>
     <% complaints.forEach(function(complaint){ %>
-        <% if(complaint.length==0){ %>
-            <div style="margin:200px auto;">
-                <img src="/images/feather.svg" alt="" class="about-icons" style="margin-left: 60px;">
-                <h1>No Tickets Yet.</h1>
-            </div>
-         <% } %>
     <div class="col-sm-12 col-xs-12 col-lg-4">
         <div class="card border-primary mb-3">
             <div class="card-body">
