@@ -40,7 +40,7 @@ router.post('/', middlewareObj.isLoggedIn, async function (req, res) {
 //Access Ticket Panel
 router.get('/:id', middlewareObj.isLoggedIn, async (req, res, next) => {
     try {
-        let perPage = 3;
+        let perPage = 6;
         let pageQuery = parseInt(req.query.page);
         let pageNumber = pageQuery ? pageQuery : 1;
 
