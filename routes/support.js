@@ -12,26 +12,29 @@ const { create } = require('../models/user');
 // Show all complaints
 router.get('/', middlewareObj.isAdmin, async (req, res, next) => {
     try {
-        let perPage=3;
-        let pageQuery=parseInt(req.query.page);
-        let pageNumber=pageQuery?pageQuery:1;
+        let perPage = 3;
+        let pageQuery = parseInt(req.query.page);
+        let pageNumber = pageQuery ? pageQuery : 1;
 
-        const complaints = await Complaint.find({ archived: false }).skip((perPage*pageNumber)-perPage).limit(perPage).sort(
-            '-createdAt',
-        );
-        let countAll=await Complaint.countDocuments({archived:false});
+        const complaints = await Complaint.find({ archived: false })
+            .skip(perPage * pageNumber - perPage)
+            .limit(perPage)
+            .sort('-createdAt');
+        let countAll = await Complaint.countDocuments({ archived: false });
 
         const recentComplaints = await Complaint.find({
             createdAt: { $gt: new Date(Date.now() - 24 * 60 * 60 * 1000) },
         }).sort('-createdAt');
-        let countRecent=await Complaint.countDocuments({createdAt: { $gt: new Date(Date.now() - 24 * 60 * 60 * 1000) }});
+        let countRecent = await Complaint.countDocuments({
+            createdAt: { $gt: new Date(Date.now() - 24 * 60 * 60 * 1000) },
+        });
 
         return res.render('support/support', {
             complaints: complaints,
             recentComplaints: recentComplaints,
-            current:pageNumber,
+            current: pageNumber,
             allPages: Math.ceil(countAll / perPage),
-            recentPages: Math.ceil(countRecent / perPage)
+            recentPages: Math.ceil(countRecent / perPage),
         });
     } catch (err) {
         console.log(err);

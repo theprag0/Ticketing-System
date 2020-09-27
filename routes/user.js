@@ -40,15 +40,18 @@ router.post('/', middlewareObj.isLoggedIn, async function (req, res) {
 //Access Ticket Panel
 router.get('/:id', middlewareObj.isLoggedIn, async (req, res, next) => {
     try {
-        let perPage=3;
-        let pageQuery=parseInt(req.query.page);
-        let pageNumber=pageQuery?pageQuery:1;
+        let perPage = 3;
+        let pageQuery = parseInt(req.query.page);
+        let pageNumber = pageQuery ? pageQuery : 1;
 
         const complaints = await Complaint.find({
             archived: false,
             author: { id: req.user._id },
-        }).skip((perPage*pageNumber)-perPage).limit(perPage).sort('-createdAt');
-         let count=await Complaint.countDocuments({
+        })
+            .skip(perPage * pageNumber - perPage)
+            .limit(perPage)
+            .sort('-createdAt');
+        let count = await Complaint.countDocuments({
             archived: false,
             author: { id: req.user._id },
         });
@@ -59,8 +62,8 @@ router.get('/:id', middlewareObj.isLoggedIn, async (req, res, next) => {
         } else {
             return res.render('user/user-tickets', {
                 complaints: complaints,
-                pages: Math.ceil(count/perPage),
-                current:pageNumber
+                pages: Math.ceil(count / perPage),
+                current: pageNumber,
             });
         }
     } catch (err) {
