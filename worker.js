@@ -12,7 +12,6 @@ const updateComplaints = async () => {
             emailServer.sendNotificationEmail(complaint);
         }
     });
-    console.log('setInterval was triggered');
 };
 
 const timer = setInterval(updateComplaints, hour);

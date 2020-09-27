@@ -32,9 +32,9 @@
             
             document.getElementById("menu-bg").classList.toggle("change-bg");
         }
-        
-        // NAVBAR SCROLL EFFECT
-                $(function () {
+    
+         // NAVBAR SCROLL EFFECT
+       $(function () {
                     $(document).scroll(function () {
                         var $nav = $("#mainnavbar");
                         $nav.toggleClass("scrolled", $(this).scrollTop() > $nav.height());
@@ -44,7 +44,6 @@
                         $nav.toggleClass("scrolled-a", $(this).scrollTop() > $nav.height());
                     });
                 });
-           
         // SMOOTH-SCROLL EFFECT
         const links = document.querySelectorAll(".arrow-down");
          

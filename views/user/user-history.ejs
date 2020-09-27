@@ -3,18 +3,18 @@
    <table class="table table-bordered">
      <thead class="thead-dark">
          <tr>
+           <th class="scope">Ticket ID/Ref. No</th>
            <th class="scope">Date of Creation</th>
              <th class="scope">Title</th>
-             <th class="scope">Ticket ID/Ref. No</th>
              <th class="scope">More Info.</th>
          </tr>
      </thead>
      <tbody>
          <% complaints.forEach(function(complaint){ %>
             <tr>
-              <td><%=complaint.createdAt%></td>
-              <th class="scope"><%=complaint.name%></th>
               <td><%=complaint.type%> - <%=complaint.ticketId%></td>
+              <td><%=moment(complaint.createdAt).format("dddd, MMMM Do YYYY, h:mm:ss a");%></td>
+              <th class="scope"><%=complaint.name%></th>
               <td><a href="/user/<%=complaint._id%>/show" class="btn btn-info btn-sm">View Ticket</a></td>
             </tr>
          <% }) %>

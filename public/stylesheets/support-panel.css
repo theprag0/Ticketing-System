@@ -35,3 +35,9 @@ h1{
 .card-body{
     padding-top: 0;
 }
+
+/* PAGINATION */
+.page-item{
+    padding: 0;
+    color: white;
+}
