@@ -1,5 +1,42 @@
 <% layout("layout") -%>
 <div class="container">
+
+  <section class="search">
+    <form id="search-option">
+      <div class="input-field" id="by-id"><button>Search By Ticket-ID</button></div>
+      <div class="input-field" id="by-date"><button>Search By Date</button></div>
+    </form>
+      <form action="/support-history" class="hide-search" id="id-form">
+        <div class="input-field">
+          <select name="typeSearch" id="search-type" required>
+            <option value="Service Request">Service Request</option>
+            <option value="Incident Report">Incident Report</option>
+          </select>
+        </div>
+        <div class="input-field">
+          <input type="text" name="idSearch" placeholder="Search By ID. Eg: 120" class="searchTerm" pattern="[0-9]" required>
+        </div>
+        <div class="input-field"><button type="submit">Search</button></div>
+      </form>
+      <form action="/support-history" class="hide-search" id="date-form">
+        <div class="input-field">
+          <label style="color: white;">
+            Enter Start Date
+            <input type="date" name="dateSearchStart" required>
+          </label>
+          </div>
+          <div class="input-field">
+          <label style="color: white;">
+            Enter End Date
+            <input type="date" name="dateSearchEnd" required>
+          </label>
+        </div>
+        <div class="input-field" style="padding-top: 15px;">
+          <button type="submit">Search</button>
+        </div>
+      </form>
+  </section>
+  
    <table class="table table-bordered">
      <thead class="thead-dark">
          <tr>

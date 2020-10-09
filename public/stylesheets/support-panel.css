@@ -41,3 +41,48 @@ h1{
     padding: 0;
     color: white;
 }
+
+/* Search form */
+.search form{
+    padding: 16px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: rgba(0,0,0);
+    display: -ms-flexbox;
+    display: flex;
+    width: 70%;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.input-field{
+    flex-grow: 1;
+    position: relative;
+    border-right: 1px solid black;
+    box-sizing: border-box;
+    display: block;
+}
+.input-field input,
+.input-field select,
+.input-field button{
+    height: 50px;
+    background: #fff;
+    border-radius: 0;
+    border: 0;
+    display: block;
+    width: 100%;
+    padding: 10px 20px 10px 45px;
+    font-size: 16px;
+    color: #555;
+    font-weight: 400;
+    font-family: 'Roboto', sans-serif;
+}
+.input-field button{
+    color: white;
+    padding: 10px 20px;
+    background-color: rgba(227, 176, 57,0.9);
+}
+.hide-search{
+    display: none !important;
+}

@@ -3,7 +3,6 @@ var router = express.Router({ mergeParams: true });
 var Complaint = require('../models/complaints');
 const middlewareObj = require('../middleware/index');
 const emailServer = require('../utils/sendEmail');
-const { findOneAndUpdate } = require('../models/complaints');
 
 // USER ROUTES
 // Render the complaint form
@@ -90,19 +89,50 @@ router.get('/:id/show', function (req, res) {
 });
 
 // Access history page containing all created tickets
-router.get('/:id/history', middlewareObj.isLoggedIn, function (req, res) {
-    Complaint.find({ author: { id: req.user._id } })
-        .sort('-createdAt')
-        .exec(function (err, complaints) {
-            if (err) {
-                req.flash(
-                    'error',
-                    'Something went wrong, Please try again later.',
-                );
-                res.redirect('back');
-            }
+router.get('/:id/history', middlewareObj.isLoggedIn, async function (req, res) {
+    try {
+        const query = { author: { id: req.user._id } };
+        if (req.query.typeSearch) {
+            query.type = new RegExp(escapeRegex(req.query.typeSearch), 'gi');
+            query.ticketId = req.query.idSearch;
+        } else if (req.query.dateSearchStart && req.query.dateSearchEnd) {
+            query.startDate = req.query.dateSearchStart;
+            query.endDate = req.query.dateSearchEnd;
+        }
+        if (query.type) {
+            const complaints = await Complaint.find(query)
+                .sort('-createdAt')
+                .populate('author.id');
             res.render('user/user-history', { complaints: complaints });
-        });
+        } else if (query.startDate && query.endDate) {
+            const complaints = await Complaint.find({
+                author: { id: req.user._id },
+                createdAt: {
+                    $gte: new Date(query.startDate),
+                    $lt: new Date(query.endDate),
+                },
+            })
+                .sort('-createdAt')
+                .populate('author.id');
+            console.log(complaints);
+            res.render('user/user-history', { complaints: complaints });
+        } else {
+            const complaints = await Complaint.find({
+                author: { id: req.user._id },
+            })
+                .sort('-createdAt')
+                .populate('author.id');
+            res.render('user/user-history', { complaints: complaints });
+        }
+    } catch (err) {
+        console.log(err);
+        req.flash('error', 'Something went wrong, Please try again later.');
+        res.redirect('back');
+    }
 });
+
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+}
 
 module.exports = router;

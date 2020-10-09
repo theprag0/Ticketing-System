@@ -6,7 +6,6 @@ const emailServer = require('../utils/sendEmail');
 const middlewareObj = require('../middleware/index');
 const utils = require('../utils/utils');
 const moment = require('moment');
-const { create } = require('../models/user');
 
 // SUPPORT ROUTES
 // Show all complaints

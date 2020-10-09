@@ -53,7 +53,9 @@ padding: 0;
 .hide{
     display: none;
 }
-
+#hide{
+    display: none;
+}
 /* NAVBAR */
 .navbar-brand{
     font-family: 'Comfortaa', cursive;

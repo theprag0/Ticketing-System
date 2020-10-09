@@ -3,12 +3,6 @@ var router = express.Router({ mergeParams: true });
 var passport = require('passport');
 const User = require('../models/user');
 const middlewareObj = require('../middleware/index');
-const Complaint = require('../models/complaints');
-
-// HOME ROUTE
-router.get('/', function (req, res) {
-    res.render('home', { page: 'home' });
-});
 
 // REGISTER ROUTES
 router.get('/register', middlewareObj.notLoggedIn, function (req, res) {
@@ -68,5 +62,3 @@ router.get('/logout', middlewareObj.isLoggedIn, (req, res, next) => {
 });
 
 module.exports = router;
-
-// const complaints = await Complaint.find({status: "Close", archived: false, archivingTime: {$gte: Date.now()}})

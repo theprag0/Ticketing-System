@@ -23,6 +23,7 @@
         "ejs-mate": "^3.0.0",
         "express": "^4.17.1",
         "express-session": "^1.17.1",
+        "googleapis": "^61.0.0",
         "method-override": "^3.0.0",
         "moment": "^2.27.0",
         "mongoose": "^5.10.0",
