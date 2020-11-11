@@ -1,0 +1,99 @@
+<% layout('layout') -%>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+        <button class="btn btn-sm btn-danger ml-2" id="email-button" type="button" data-toggle="collapse" data-target="#collapseEmail" aria-expanded="false" aria-controls="collapseEmail">
+            Add Support Executive
+         </button>
+         <div class="collapse" id="collapseEmail">
+        <div class="card card-body">
+           
+            <form class="form-signin needs-validation novalidate" action="/register/add/<%=companyId%>" method="POST" autocomplete="off">
+                <div class="register-form">
+                  <div class="form-row mb-2">
+                     <div class="col-md-6">
+                         <label for="firstName">First name</label>
+                         <input type="text" class="form-control is-valid" id="firstName" placeholder="First Name" name="firstName" required>
+                         <!-- <div class="valid-feedback">
+                             Looks good!
+                           </div> -->
+                       </div>
+                       <div class="col-md-6">
+                         <label for="lastName">Last name</label>
+                         <input type="text" class="form-control is-valid" id="lastName" placeholder="Last Name" name="lastName" required>
+                         <!-- <div class="valid-feedback">
+                             Looks good!
+                           </div> -->
+                       </div>
+                  </div>
+                   
+                   <div class="form-group">
+                     <label for="email">Email</label>
+                     <input type="email" class="form-control" id="email" placeholder="you@example.com" name="email" required>
+                     <div class="invalid-feedback">
+                       Please enter a valid email address.
+                     </div>
+                   </div>
+                    
+                   <div class="form-group">
+                       <label for="username">Username</label>
+                       <input type="text" id="username" name="username" placeholder="Enter your username" class="form-control" required>
+                   </div>
+
+                   <div class="form-group">
+                     <label for="password">Password</label>
+                       <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>
+                   </div>
+                   
+                  <div class="form-group">
+                      <label for="company-id">Company ID</label>
+                      <input type="text" class="form-control" id="company-id" name="companyId" value="<%=companyId%>" disabled>
+                  </div>
+                   <input hidden type="text" name="role" value="admin">
+                   <div class="form-group">
+                     <button class="btn btn-sm btn-primary">Sign Up</button>
+                 </div>
+                </div>
+                   </form>
+          
+                </div>
+        </div>
+    </div>
+    <div class="col-md-2"><p>OR Upload a CSV File:</p></div>
+    <div class="col-md-5">
+    <form action="/register/add/<%=companyId%>" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <input type="file" name="file" class="form-control">
+        </div>
+        <input type="text" name="role" value="admin" hidden>
+        <div class="form-group">
+            <input type="submit" class="btn btn-sm btn-info form-control">
+        </div>
+    </form>
+    </div>
+    </div>
+
+    <table class="table table-bordered">
+       <thead class="thead-dark">
+           <tr>
+               <th>Name</th>
+               <th>Email</th>
+               <th>Username</th>
+               <th>Role</th>
+           </tr>
+       </thead>
+       <tbody>
+           <% for(let user of users){ %>
+               <% if(user.role === 'admin' || user.role === 'companyAdmin'){ %>
+                <tr>
+                    <td><%=user.firstName%> <%=user.lastName%></td>
+                    <td><%=user.email%></td>
+                    <td><%=user.username%></td>
+                    <td><%=user.role%></td>
+                </tr> 
+               <% } %>
+           <% } %>
+       </tbody>
+    </table>
+</div>

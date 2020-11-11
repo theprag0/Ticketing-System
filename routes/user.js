@@ -1,17 +1,18 @@
-var express = require('express');
-var router = express.Router({ mergeParams: true });
-var Complaint = require('../models/complaints');
+const express = require('express');
+const router = express.Router({ mergeParams: true });
+const Complaint = require('../models/complaints');
+const Company = require('../models/company');
 const middlewareObj = require('../middleware/index');
 const emailServer = require('../utils/sendEmail');
 
 // USER ROUTES
-// Render the complaint form
-router.get('/', middlewareObj.isLoggedIn, function (req, res) {
-    res.render('user/user');
+// Render the  complaint form
+router.get('/create/:companyId', middlewareObj.isLoggedIn, function (req, res) {
+    res.render('user/user',{companyId:req.params.companyId});
 });
 
 // Post new complaint
-router.post('/', middlewareObj.isLoggedIn, async function (req, res) {
+router.post('/create/:companyId', middlewareObj.isLoggedIn, async function (req, res) {
     try {
         const complaint = new Complaint();
         complaint.author = { id: req.user._id };
@@ -21,6 +22,7 @@ router.post('/', middlewareObj.isLoggedIn, async function (req, res) {
         complaint.type = req.body.type;
         complaint.priority = req.body.priority;
         complaint.status = 'Not Assigned Yet';
+        complaint.companyId = {id:req.params.companyId};
 
         const newComplaint = await complaint.save({ new: true });
         if (!newComplaint) {
@@ -37,7 +39,7 @@ router.post('/', middlewareObj.isLoggedIn, async function (req, res) {
 });
 
 //Access Ticket Panel
-router.get('/:id', middlewareObj.isLoggedIn, async (req, res, next) => {
+router.get('/:id', middlewareObj.isUser, middlewareObj.isLoggedIn, async (req, res, next) => {
     try {
         let perPage = 6;
         let pageQuery = parseInt(req.query.page);
@@ -55,6 +57,8 @@ router.get('/:id', middlewareObj.isLoggedIn, async (req, res, next) => {
             author: { id: req.user._id },
         });
 
+        const company=await Company.findById({_id:req.user.companyId.id});
+       
         if (!complaints) {
             req.flash('error', 'Something went wrong. Please try again');
             return res.redirect('back');
@@ -63,6 +67,8 @@ router.get('/:id', middlewareObj.isLoggedIn, async (req, res, next) => {
                 complaints: complaints,
                 pages: Math.ceil(count / perPage),
                 current: pageNumber,
+                companyId:req.user.companyId.id,
+                company:company
             });
         }
     } catch (err) {
@@ -89,9 +95,9 @@ router.get('/:id/show', function (req, res) {
 });
 
 // Access history page containing all created tickets
-router.get('/:id/history', middlewareObj.isLoggedIn, async function (req, res) {
+router.get('/:id/history', middlewareObj.isUser, middlewareObj.isLoggedIn, async function (req, res) {
     try {
-        const query = { author: { id: req.user._id } };
+        const query = { author: { id: req.user._id }, "companyId.id":req.user.companyId.id };
         if (req.query.typeSearch) {
             query.type = new RegExp(escapeRegex(req.query.typeSearch), 'gi');
             query.ticketId = req.query.idSearch;
@@ -107,6 +113,7 @@ router.get('/:id/history', middlewareObj.isLoggedIn, async function (req, res) {
         } else if (query.startDate && query.endDate) {
             const complaints = await Complaint.find({
                 author: { id: req.user._id },
+                "companyId.id":req.user.companyId.id,
                 createdAt: {
                     $gte: new Date(query.startDate),
                     $lt: new Date(query.endDate),
@@ -119,6 +126,7 @@ router.get('/:id/history', middlewareObj.isLoggedIn, async function (req, res) {
         } else {
             const complaints = await Complaint.find({
                 author: { id: req.user._id },
+                "companyId.id":req.user.companyId.id
             })
                 .sort('-createdAt')
                 .populate('author.id');

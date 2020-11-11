@@ -4,6 +4,7 @@
 @import './register.css';
 @import './show.css';
 @import './support-panel.css';
+@import './admin-panel.css';
 *{
     margin: 0;
     padding: 0;
@@ -23,6 +24,7 @@ body{
     background-repeat: no-repeat;
     background-attachment: fixed;
     scroll-behavior: smooth;
+    font-family: 'Roboto',sans-serif;
 }
 ul{
     padding: 0;
@@ -181,4 +183,9 @@ padding: 0;
     .nav-item{
         font-size: 20px;
     }
+}
+
+.signup-header{
+    margin-left:2.5rem;
+    justify-content: center;
 }

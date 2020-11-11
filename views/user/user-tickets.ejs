@@ -2,10 +2,12 @@
 <div class="container pt-4">
 <section>
     <div class="container">
+        <h1><%=company.name%></h1>
+        <p><em><%=company.type%></em></p>
         <a href="/user/<%=currentUser._id%>/history" class="btn btn-info btn-sm float-right">View History</a>
         <h2>My Tickets</h2>
         <hr>
-        <p class="new-ticket mb-4">Add New Ticket: <a href="/user" class="btn btn-success btn-lg">Add New Ticket</a></p>
+        <p class="new-ticket mb-4">Add New Ticket: <a href="/user/create/<%=companyId%>" class="btn btn-success btn-lg">Add New Ticket</a></p>
         <% if(complaints.length==0){ %>
             <div class="row">
                 <div style="margin:200px auto;">

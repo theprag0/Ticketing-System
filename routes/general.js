@@ -23,12 +23,12 @@ router.post('/email', function (req, res) {
 });
 
 // Access history page containing all created tickets
-router.get('/support-history', middlewareObj.isAdmin, async function (
+router.get('/support-history/:companyId', middlewareObj.isAdmin, async function (
     req,
     res,
 ) {
     try {
-        const query = {};
+        const query = {"companyId.id":req.params.companyId};
         if (req.query.typeSearch) {
             query.type = new RegExp(escapeRegex(req.query.typeSearch), 'gi');
             query.ticketId = req.query.idSearch;
@@ -47,12 +47,13 @@ router.get('/support-history', middlewareObj.isAdmin, async function (
                     $gte: new Date(query.startDate),
                     $lt: new Date(query.endDate),
                 },
+                "companyId.id":req.user.companyId.id
             })
                 .sort('-createdAt')
                 .populate('author.id');
             res.render('support/support-history', { complaints: complaints });
         } else {
-            const complaints = await Complaint.find({})
+            const complaints = await Complaint.find({"companyId.id":req.params.companyId})
                 .sort('-createdAt')
                 .populate('author.id');
             res.render('support/support-history', { complaints: complaints });

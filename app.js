@@ -23,7 +23,8 @@ const express = require('express'),
 const userRoutes = require('./routes/user'),
     supportRoutes = require('./routes/support'),
     authRoutes = require('./routes/auth'),
-    generalRoutes = require('./routes/general');
+    generalRoutes = require('./routes/general'),
+    companyRoutes = require('./routes/company');
 
 var Complaint = require('./models/complaints');
 var middlewareObj = require('./middleware/index');
@@ -72,6 +73,7 @@ app.use('/user', userRoutes);
 app.use('/support', supportRoutes);
 app.use('/', authRoutes);
 app.use('/', generalRoutes);
+app.use('/',companyRoutes);
 
 app.listen(process.env.PORT || 3000, process.env.IP, function () {
     console.log('The Server Has Started.');

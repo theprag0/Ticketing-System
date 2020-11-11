@@ -128,7 +128,7 @@
                             <select class="form-control" name="form[assignedTo]" id="statusSelect">
                                 <option value="">--Assign To--</option>
                                 <% admin.forEach(function(user){ %>
-                                      <option value="<%=user.id%>"><%=user.firstName%></option>
+                                      <option value="<%=user.id%>"><%=user.firstName%> <%=user.lastName%></option>
                                 <% }); %>
                             </select>
                         </div>

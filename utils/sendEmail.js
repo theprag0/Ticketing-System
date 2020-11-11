@@ -43,7 +43,7 @@ module.exports.sendVerificartionEmail = async (complaint) => {
         subject: 'Your Ticket Has Been Initiated', // Subject line
         text:
             'Hi ' +
-            complaint.author.id.username +
+            complaint.author.id.firstName +
             ',\n\n' +
             'Thank You For Using Ticket Cloud.\n' +
             'This is a confirmation email to notify you that your ticket with ref. no:' +

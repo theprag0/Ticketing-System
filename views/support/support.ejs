@@ -1,5 +1,7 @@
 <% layout("layout")-%>
 <div class="container pt-4">
+    <h2 style="font-family: 'Roboto',sans-serif;"><%=company.name%></h2>
+    <p><em><%=company.type%></em></p>
     <div class="float-right ml-2">
             <select name="filter-search" id="filter-search" onclick="filter(value)" class="btn btn-info btn-sm">
                 <option>Filter Tickets</option>
@@ -7,7 +9,7 @@
                 <option value="Recent">Last 24 hours</option>
             </select>
       </div>
-    <a href="/support-history" class="btn btn-info btn-sm float-right">View History</a>
+    <a href="/support-history/<%=company._id%>" class="btn btn-info btn-sm float-right">View History</a>
     <h3 style="font-family: 'Roboto',sans-serif;">All Tickets:</h3>
     <hr>
     
@@ -53,7 +55,7 @@
                         <p><%=complaint.status%></p>
                         <% } %>
                     </span>
-                    <a href="/support/<%=complaint._id%>" class="btn btn-primary btn-sm">More Info</a>
+                    <a href="/support/show/<%=complaint._id%>" class="btn btn-primary btn-sm">More Info</a>
                 </div>
             </div>
         </div>

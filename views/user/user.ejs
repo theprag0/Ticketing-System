@@ -3,10 +3,10 @@
 <section>
 <div class="row justify-content-center">
     <div class="col-sm-12 col-lg-6">
-        <form action="/user" method="POST" autocomplete="off">
+        <form action="/user/create/<%=companyId%>" method="POST" autocomplete="off">
             <div class="form-group">
                 <label>Title/Subject:</label>
-                 <input type="text" name="name" placeholder="Enter Title here" class="form-control" pattern="^[a-zA-Z0-9]+$"
+                 <input type="text" name="name" placeholder="Enter Title here" class="form-control" pattern="([A-z0-9À-ž\s]){2,}"
                  oninvalid="this.setCustomValidity('Make sure no special characters are used and do not leave the input field empty')" 
                  oninput="this.setCustomValidity('')" required >
             </div>

@@ -15,16 +15,20 @@
                     <a href="/login" class="nav-link">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/register" class="nav-link btn btn-info btn-sm">Sign Up</a>
+                    <a href="/register/company" class="nav-link btn btn-info btn-sm">Sign Up</a>
                 </li>
                 <% } else { %> <% if(currentUser && currentUser.role === "admin") { %>
                 <li class="nav-item">
-                    <a href="/support" class="nav-link">Support Panel</a>
+                    <a href="/support/<%=currentUser.companyId.id%>" class="nav-link">Support Panel</a>
                 </li>
-                <% } else { %>
+                <% } else if(currentUser && currentUser.role === "companyAdmin"){ %>
                 <li class="nav-item">
-                    <a href="/user/<%= currentUser._id %>" class="nav-link">Ticket Panel</a>
+                    <a href="/company/<%=currentUser.companyId.id%>" class="nav-link">Company Dashboard</a>
                 </li>
+                <% } else{ %>
+                  <li>
+                  <a href="/user/<%= currentUser._id %>" class="nav-link">Ticket Panel</a>
+                  </li>
                 <% } %>
                 <li class="nav-item">
                     <a href="/logout" class="nav-link">Logout</a>
@@ -43,16 +47,18 @@
               <a href="/login" class="nav-link">Login</a>
           </li>
           <li>
-              <a href="/register" class="nav-link">Sign Up</a>
+              <a href="/register/company" class="nav-link">Sign Up</a>
           </li>
           <% } else { %> <% if(currentUser && currentUser.role === "admin") { %>
           <li>
-              <a href="/support" class="nav-link">Support panel</a>
+              <a href="/support/<%=currentUser.companyId.id%>" class="nav-link">Support panel</a>
           </li>
-          <% } else { %>
+          <% } else if(currentUser && currentUser.role === "companyAdmin"){ %>
           <li>
-              <a href="/user/<%= currentUser._id %>" class="nav-link">My Tickets</a>
+              <a href="/company/<%=currentUser.companyId.id%>" class="nav-link">Company Dashboard</a>
           </li>
+          <% } else{ %>
+              <a href="/user/<%= currentUser._id %>">Ticket Panel</a>
           <% } %>
           <li>
               <a href="/logout" class="nav-link">Logout</a>
