@@ -13,11 +13,11 @@ const complaintSchema = new mongoose.Schema(
         reviewPendingAt: { type: Date },
         reviewReopenAt: { type: Date },
         reviewClosedAt: { type: Date },
-        companyId:{
-           id:{
-               type:mongoose.Schema.Types.ObjectId,
-               ref:'Company'
-           }
+        companyId: {
+            id: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Company',
+            },
         },
         author: {
             id: {
@@ -46,7 +46,7 @@ const complaintSchema = new mongoose.Schema(
 complaintSchema.plugin(AutoIncrement, {
     id: 'ticket_seq',
     inc_field: 'ticketId',
-    reference_fields: ['type','companyId'],
+    reference_fields: ['type', 'companyId'],
     start_seq: '0001',
 });
 

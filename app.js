@@ -73,7 +73,7 @@ app.use('/user', userRoutes);
 app.use('/support', supportRoutes);
 app.use('/', authRoutes);
 app.use('/', generalRoutes);
-app.use('/',companyRoutes);
+app.use('/', companyRoutes);
 
 app.listen(process.env.PORT || 3000, process.env.IP, function () {
     console.log('The Server Has Started.');
