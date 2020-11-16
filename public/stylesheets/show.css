@@ -54,7 +54,7 @@ hr.style-one {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
 }
-#status-warning{
+.input-warning{
     font-weight: lighter;
     font-size: 0.8em;
     font-family: 'Montserrat', sans-serif;

@@ -1,0 +1,91 @@
+<% layout('layout') -%>
+
+<div class="sidebar">
+    <ul>
+        <li>
+            <a href="/register/user/<%=company._id%>">
+               <span class="sidebar-icon"><i class="fas fa-users"></i></span>
+               <span class="sidebar-title">Add Users</span>
+            </a>
+        </li>
+        <li>
+            <a href="/register/support/<%=company._id%>">
+              <span class="sidebar-icon"><i class="fas fa-users-cog"></i></span>
+              <span class="sidebar-title">Add Support Executives</span>
+           </a>
+        </li>
+        <li>
+            <a href="/support/<%=company._id%>">
+               <span class="sidebar-icon"><i class="fas fa-ticket-alt"></i></span>
+               <span class="sidebar-title">View Support Panel</span>
+            </a>
+        </li>
+        <li>
+            <a href="/logout">
+              <span class="sidebar-icon"><i class="fas fa-sign-out-alt"></i></span>
+              <span class="sidebar-title">Logout</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="toggle-sidebar" onclick="toggleMenu()"></div>
+<div class="container">
+  <div class="row">
+  <div class="col-md-5">
+      <div class="main-content">
+          <h1><%=company.name%></h1>
+          <p><em><%=company.type%></em></p>
+          <h3>Company Panel</h3>
+          <hr>
+          <h4>Admin Details:</h4>
+          <img src="/images/admin-profile.jpg" alt="admin profile picture" class="img-fluid admin-image mb-3">
+          <p><strong>First Name:</strong> <%=company.admin.id.firstName%></p>
+          <p><strong>Last Name:</strong> <%=company.admin.id.lastName%></p>
+          <p><strong>Username:</strong> @<%=company.admin.id.username%></p>
+          <p><strong>Role:</strong> <%=company.admin.id.role%></p>
+          <p><strong>Email:</strong> <%=company.admin.id.email%></p>
+      </div>
+  </div>
+  <div class="col-md-6 stats">
+     <h2>Statistics:</h2>
+     <hr>
+     <div class="details">
+     <div style="float: left;">
+      <ul>
+          <li><strong>No. of Open Tickets(Currently):</strong></li>
+          <li><strong>No. of Pending Tickets(Currently):</strong></li>
+      </ul>
+    </div>
+    <div style="float: right;">
+      <ul>
+          <% let open = 0 %>
+          <% let pending = 0 %>
+          <% for(let complaint of complaints){ %>
+              <% if(complaint.status === 'Open'){ %>
+                   <% open++; %>
+              <% } %>
+              <% if(complaint.status === 'Pending' || complaint.status === 'Not Assigned Yet'){ %>
+                   <% pending++; %>
+              <% } %>
+          <% } %>
+          <li>
+              <%= open %>
+          </li>
+          <li>
+              <%= pending %>
+          </li>
+      </ul>
+    </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  function toggleMenu(){
+      let sideBar = document.querySelector('.sidebar');
+      let toggle = document.querySelector('.toggle-sidebar');
+      sideBar.classList.toggle('active');
+      toggle.classList.toggle('active');
+  }
+</script>

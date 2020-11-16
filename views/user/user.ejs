@@ -3,22 +3,24 @@
 <section>
 <div class="row justify-content-center">
     <div class="col-sm-12 col-lg-6">
-        <form action="/user" method="POST" autocomplete="off">
+        <form action="/user/create/<%=companyId%>" method="POST" autocomplete="off">
             <div class="form-group">
-                <label for="">Title/Subject:</label>
-                 <input type="text" name="name" placeholder="Enter Title here" class="form-control" required>
+                <label>Title/Subject:</label>
+                 <input type="text" name="name" placeholder="Enter Title here" class="form-control" pattern="([A-z0-9À-ž\s]){2,}"
+                 oninvalid="this.setCustomValidity('Make sure no special characters are used and do not leave the input field empty')" 
+                 oninput="this.setCustomValidity('')" required >
             </div>
             <div class="form-group">
                 <label for="ticketType">Ticket Type: <span class="required">*</span></label>
                 <select name="type" id="ticketType" class="form-control" required>
                     <option value="">--Select Ticket Type--</option>
                     <option value="Service Request">Service Request</option>
-                    <option value="Incident Request">Incident Request</option>
+                    <option value="Incident Report">Incident Report</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="ticketPriority">Ticket Priority: <span class="required">*</span></label>
-                <select name="priority" id="ticketPriority" class="form-control">
+                <select name="priority" id="ticketPriority" class="form-control" required>
                     <option value="">--Select Ticket Priority--</option>
                     <option value="P-01">P-01</option>
                     <option value="P-02">P-02</option>

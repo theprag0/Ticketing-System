@@ -2,26 +2,50 @@ const express = require('express');
 const router = express.Router();
 const Complaint = require('../models/complaints');
 const User = require('../models/user');
+const Company = require('../models/company');
 const emailServer = require('../utils/sendEmail');
 const middlewareObj = require('../middleware/index');
 const utils = require('../utils/utils');
 const moment = require('moment');
-const { create } = require('../models/user');
 
 // SUPPORT ROUTES
 // Show all complaints
-router.get('/', middlewareObj.isAdmin, async (req, res, next) => {
+router.get('/:companyId', middlewareObj.isAdmin, async (req, res, next) => {
     try {
-        const complaints = await Complaint.find({ archived: false }).sort(
-            '-createdAt',
-        );
+        let perPage = 6;
+        let pageQuery = parseInt(req.query.page);
+        let pageNumber = pageQuery ? pageQuery : 1;
+
+        const complaints = await Complaint.find({
+            archived: false,
+            'companyId.id': req.params.companyId,
+        })
+            .skip(perPage * pageNumber - perPage)
+            .limit(perPage)
+            .sort('-createdAt');
+        let countAll = await Complaint.countDocuments({
+            archived: false,
+            'companyId.id': req.params.companyId,
+        });
+
         const recentComplaints = await Complaint.find({
             createdAt: { $gt: new Date(Date.now() - 24 * 60 * 60 * 1000) },
+            'companyId.id': req.params.companyId,
         }).sort('-createdAt');
+        let countRecent = await Complaint.countDocuments({
+            createdAt: { $gt: new Date(Date.now() - 24 * 60 * 60 * 1000) },
+            'companyId.id': req.params.companyId,
+        });
+
+        const company = await Company.findById({ _id: req.params.companyId });
 
         return res.render('support/support', {
             complaints: complaints,
             recentComplaints: recentComplaints,
+            current: pageNumber,
+            allPages: Math.ceil(countAll / perPage),
+            recentPages: Math.ceil(countRecent / perPage),
+            company: company,
         });
     } catch (err) {
         console.log(err);
@@ -31,31 +55,20 @@ router.get('/', middlewareObj.isAdmin, async (req, res, next) => {
 });
 
 //Show more info about a ticket
-router.get('/:id', middlewareObj.isAdmin, function (req, res) {
-    Complaint.findById(req.params.id)
-        .populate('author.id assignedTo')
-        .exec(function (err, foundComplaint) {
-            if (err) {
-                req.flash('error', 'Something went wrong. Please try again');
-                res.redirect('back');
-            } else {
-                User.find({ role: 'admin' }, function (err, foundAdmin) {
-                    if (err) {
-                        console.log(err);
-                        req.flash(
-                            'error',
-                            'Something went wrong. Please try again',
-                        );
-                        res.redirect('back');
-                    } else {
-                        res.render('support/show', {
-                            complaint: foundComplaint,
-                            admin: foundAdmin,
-                        });
-                    }
-                });
-            }
+router.get('/show/:id', middlewareObj.isAdmin, async function (req, res) {
+    try {
+        const complaint = await Complaint.findById(req.params.id).populate(
+            'author.id assignedTo',
+        );
+        const users = await User.find({
+            'companyId.id': complaint.companyId.id,
+            role: { $in: ['admin', 'companyAdmin'] },
         });
+        res.render('support/show', { complaint: complaint, admin: users });
+    } catch (err) {
+        req.flash('error', 'Something went wrong. Please try again');
+        res.redirect('back');
+    }
 });
 
 // Add status by updating db

@@ -1,0 +1,121 @@
+.sidebar{
+    box-sizing: border-box;
+    position: fixed;
+    width: 60px;
+    height: 100%;
+    background: #272343;
+    transition: 0.5s;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.sidebar:hover,
+.sidebar.active{
+    width: 300px;
+}
+
+.sidebar ul{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.sidebar ul li{
+    position: relative;
+    width: 100%;
+    list-style: none;
+    padding: 0;
+}
+.sidebar ul li:hover{
+    background: #241663;
+}
+.sidebar ul li a{
+    position: relative;
+    display: block;
+    width: 100%;
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+}
+.sidebar ul li a .sidebar-icon{
+    position: relative;
+    display: block;
+    min-width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+}
+.sidebar ul li a .sidebar-icon .fas{
+    font-size: 24px;
+}
+.sidebar ul li a .sidebar-title{
+    position: relative;
+    display: block;
+    padding: 0 10px;
+    height: 60px;
+    line-height: 60px;
+    text-align: start;
+    white-space: nowrap;
+}
+
+/* TOGGLE SIDEBAR */
+.toggle-sidebar{
+    position: absolute;
+    top: 70;
+    right: 0;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    background: #272343;
+    z-index: 1;
+}
+.toggle-sidebar.active{
+    background: #a72693;
+}
+.toggle-sidebar:before{
+    font-family: 'Font Awesome 5 Free';
+    content: "\f061";
+    font-weight: 900;
+    position: absolute;
+    top: 70;
+    width: 100%;
+    height: 100%;
+    line-height: 60px;
+    text-align: center;
+    font-size: 18px;
+    color: #fff;
+}
+.toggle-sidebar.active:before{
+    font-family: 'Font Awesome 5 Free';
+    content: '\f060';
+    font-weight: 900;
+}
+
+.admin-image{
+    width: 10em;
+    height: 10em;
+    border-radius: 20px;
+}
+.stats{
+    border-radius: 15px;
+    background: #f2f2f2;
+    height: 100%;
+    padding: 40px;
+    margin-top: 8em;
+    margin-left: 3em;
+    box-shadow: 3px 3px #acdbdf;
+}
+
+/* MEDIA QUERIES */
+@media (max-width:767px){
+   .sidebar{
+       left: -60px;
+   }
+   .sidebar.active{
+       left: 0px;
+       width: 100%;
+   }
+   .stats{
+       margin: 0;
+   }
+}

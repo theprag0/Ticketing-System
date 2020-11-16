@@ -15,9 +15,18 @@ port: 3000 `npm run start:dev`
 
 ### Docker
 
+
 Port: 80 ,
 Follow the steps below:
 1. `docker-compose build`
 2. `docker-compose up`
 Make sure to have DATABASE and SECRET environment variables in .env
+
+
+Port: 80 ,
+Follow the steps below:
+1. `docker-compose build`
+2. `docker-compose up`
+Make sure to have DATABASE and SECRET environment variables in .env
+
 

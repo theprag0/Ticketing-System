@@ -1,6 +1,6 @@
 // Filter tickets in support panel
-var recentTickets = document.querySelector('#recent-tickets');
-var allTickets = document.querySelector('#all-tickets');
+const recentTickets = document.querySelector('#recent-tickets');
+const allTickets = document.querySelector('#all-tickets');
 recentTickets.classList.add('hide');
 function filter($i) {
     if ($i === 'Recent') {
@@ -14,8 +14,8 @@ function filter($i) {
 
 // Toggle Email Box in ticket-show page
 function emailBox($i) {
-    var emailButton = document.getElementById('email-button');
-    var emailBox = document.getElementById('collapseEmail');
+    const emailButton = document.getElementById('email-button');
+    const emailBox = document.getElementById('collapseEmail');
     if ($i === 'Pending') {
         emailButton.classList.add('collapsed');
         emailButton.setAttribute('aria-expanded', 'true');

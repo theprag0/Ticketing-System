@@ -22,7 +22,9 @@ const express = require('express'),
 
 const userRoutes = require('./routes/user'),
     supportRoutes = require('./routes/support'),
-    authRoutes = require('./routes/auth');
+    authRoutes = require('./routes/auth'),
+    generalRoutes = require('./routes/general'),
+    companyRoutes = require('./routes/company');
 
 var Complaint = require('./models/complaints');
 var middlewareObj = require('./middleware/index');
@@ -70,35 +72,8 @@ app.use(function (req, res, next) {
 app.use('/user', userRoutes);
 app.use('/support', supportRoutes);
 app.use('/', authRoutes);
-
-app.post('/email', function (req, res) {
-    var newEmail = {
-        from: req.body.from,
-        to: req.body.to,
-        subject: req.body.subject,
-        text: req.body.text,
-    };
-    emailServer.sendSupportEmail(newEmail);
-    req.flash('success', 'Email sent successfully!');
-    res.redirect('back');
-});
-
-// Access history page containing all created tickets
-app.get('/support-history', middlewareObj.isAdmin, function (req, res) {
-    Complaint.find({})
-        .sort('-createdAt')
-        .populate('author.id')
-        .exec(function (err, complaints) {
-            if (err) {
-                req.flash(
-                    'error',
-                    'Something went wrong, Please try again later.',
-                );
-                res.redirect('back');
-            }
-            res.render('support/support-history', { complaints: complaints });
-        });
-});
+app.use('/', generalRoutes);
+app.use('/', companyRoutes);
 
 app.listen(process.env.PORT || 3000, process.env.IP, function () {
     console.log('The Server Has Started.');

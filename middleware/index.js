@@ -11,7 +11,10 @@ middlewareObj.isLoggedIn = function (req, res, next) {
 };
 
 middlewareObj.isAdmin = (req, res, next) => {
-    if (req.isAuthenticated() && req.user.role === 'admin') {
+    if (
+        (req.isAuthenticated() && req.user.role === 'admin') ||
+        req.user.role === 'companyAdmin'
+    ) {
         return next();
     } else {
         req.flash('error', 'You are not allowed to view this page!');
@@ -26,6 +29,24 @@ middlewareObj.notLoggedIn = (req, res, next) => {
         return;
     } else {
         next();
+    }
+};
+
+middlewareObj.isCompanyAdmin = (req, res, next) => {
+    if (req.isAuthenticated() && req.user.role === 'companyAdmin') {
+        return next();
+    } else {
+        req.flash('error', 'You are not allowed to view this page!');
+        return res.redirect('back');
+    }
+};
+
+middlewareObj.isUser = (req, res, next) => {
+    if (req.isAuthenticated() && req.user.role === 'user') {
+        return next();
+    } else {
+        req.flash('error', 'You are not allowed to view this page!');
+        return res.redirect('back');
     }
 };
 

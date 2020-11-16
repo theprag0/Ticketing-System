@@ -1,24 +1,49 @@
 require('dotenv').config();
-var nodemailer = require('nodemailer');
-var moment = require('moment');
+const nodemailer = require('nodemailer');
+const { google } = require('googleapis');
+const OAuth2 = google.auth.OAuth2;
+const moment = require('moment');
 require('moment/min/locales.min');
 moment.locale('en');
 
-module.exports.sendVerificartionEmail = async (complaint) => {
-    let transporter = nodemailer.createTransport({
-        service: 'Gmail',
+const oauth2Client = new OAuth2(
+    process.env.CLIENTID,
+    process.env.CLIENTSECRET,
+    'https://developers.google.com/oauthplayground',
+);
+
+oauth2Client.setCredentials({
+    refresh_token: process.env.REFRESHTOKEN,
+});
+const accessToken = oauth2Client.getAccessToken();
+
+const generateTransporter = () => {
+    return {
+        service: 'gmail',
         auth: {
-            user: 'pragwebdev@gmail.com', // generated ethereal user
-            pass: process.env.GMAILPW, // generated ethereal password
+            type: 'OAuth2',
+            user: 'pragwebdev@gmail.com',
+            clientId: process.env.CLIENTID,
+            clientSecret: process.env.CLIENTSECRET,
+            refreshToken: process.env.REFRESHTOKEN,
+            accessToken: accessToken,
+            tls: {
+                rejectUnauthorized: false,
+            },
         },
-    });
+    };
+};
+
+module.exports.sendVerificartionEmail = async (complaint) => {
+    let transporter = nodemailer.createTransport(generateTransporter());
+
     await transporter.sendMail({
         from: 'pragwebdev@gmail.com', // sender address
         to: complaint.author.id.email, // list of receivers
         subject: 'Your Ticket Has Been Initiated', // Subject line
         text:
             'Hi ' +
-            complaint.author.id.username +
+            complaint.author.id.firstName +
             ',\n\n' +
             'Thank You For Using Ticket Cloud.\n' +
             'This is a confirmation email to notify you that your ticket with ref. no:' +
@@ -31,13 +56,7 @@ module.exports.sendVerificartionEmail = async (complaint) => {
 };
 
 module.exports.sendSupportEmail = async (complaint) => {
-    let transporter = nodemailer.createTransport({
-        service: 'Gmail',
-        auth: {
-            user: 'pragwebdev@gmail.com', // generated ethereal user
-            pass: process.env.GMAILPW, // generated ethereal password
-        },
-    });
+    let transporter = nodemailer.createTransport(generateTransporter());
     await transporter.sendMail({
         from: 'pragwebdev@gmail.com', // sender address
         to: complaint.to, // list of receivers
@@ -47,13 +66,7 @@ module.exports.sendSupportEmail = async (complaint) => {
 };
 
 module.exports.sendNotificationEmail = async (complaint) => {
-    let transporter = nodemailer.createTransport({
-        service: 'Gmail',
-        auth: {
-            user: 'pragwebdev@gmail.com', // generated ethereal user
-            pass: process.env.GMAILPW, // generated ethereal password
-        },
-    });
+    let transporter = nodemailer.createTransport(generateTransporter());
     await transporter.sendMail({
         from: 'pragwebdev@gmail.com', // sender address
         to: complaint.assignedTo.email, // list of receivers
@@ -83,13 +96,8 @@ module.exports.sendNotificationEmail = async (complaint) => {
 };
 
 module.exports.sendClosedEmail = async (complaint) => {
-    let transporter = nodemailer.createTransport({
-        service: 'Gmail',
-        auth: {
-            user: 'pragwebdev@gmail.com', // generated ethereal user
-            pass: process.env.GMAILPW, // generated ethereal password
-        },
-    });
+    let transporter = nodemailer.createTransport(generateTransporter());
+
     await transporter.sendMail({
         from: 'pragwebdev@gmail.com', // sender address
         to: complaint.author.id.email, // list of receivers

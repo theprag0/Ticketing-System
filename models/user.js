@@ -8,6 +8,12 @@ var userSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
     role: { type: String, default: 'user' }, // user or admin
+    companyId: {
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Company',
+        },
+    },
 });
 
 userSchema.plugin(passportLocalMongoose);

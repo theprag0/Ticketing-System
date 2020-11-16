@@ -114,7 +114,7 @@
                                 <option value="Re-Open">Re-Open</option>
                                 <option value="Closed">Closed</option>
                             </select>
-                            <p id="status-warning"><em>*Note: Submitting the status will automatically notify the user</em></p>
+                            <p class="input-warning"><em>*Note: Submitting the status will automatically notify the user</em></p>
                         </div>
                         <div class="form-group">
                             <input type="submit" value="Submit" class="btn btn-sm btn-success" />
@@ -128,7 +128,7 @@
                             <select class="form-control" name="form[assignedTo]" id="statusSelect">
                                 <option value="">--Assign To--</option>
                                 <% admin.forEach(function(user){ %>
-                                      <option value="<%=user.id%>"><%=user.firstName%></option>
+                                      <option value="<%=user.id%>"><%=user.firstName%> <%=user.lastName%></option>
                                 <% }); %>
                             </select>
                         </div>
