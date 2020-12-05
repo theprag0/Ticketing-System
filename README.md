@@ -5,6 +5,13 @@ This my first full stack project. This is a Ticketing System that allows users t
 ### Check out the website
 https://ticketcloudservices.herokuapp.com/
 
+## Installation
+1. Clone the repo
+2. Install NPM packages
+ ```
+ npm install
+ ```
+ 
 ## Run app
 
 You can run this application on localhost or in a docker environment
