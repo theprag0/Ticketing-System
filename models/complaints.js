@@ -51,4 +51,4 @@ complaintSchema.plugin(AutoIncrement, {
 });
 
 var Complaint = mongoose.model('Complaint', complaintSchema);
-module.exports = Complaint;
+module.exports = Complaint;  
